@@ -57,11 +57,14 @@ export function ImageReveal({ screen, lineIndex, dispatch }: ImageRevealProps) {
 
       <DialogueBox speaker="Mini Carlo">{currentLine}</DialogueBox>
 
-      {isLastLine && screen.asset ? (
+      {isLastLine && screen.saveable ? (
         <div style={{ display: "flex", gap: "12px" }}>
           <PixelButton
             onClick={() => {
-              downloadImage(screen.asset!, "mini-carlo-evidence.png");
+              downloadImage(
+                screen.asset!,
+                screen.downloadName ?? "mini-carlo-image.png",
+              );
               advance();
             }}
           >
@@ -72,7 +75,9 @@ export function ImageReveal({ screen, lineIndex, dispatch }: ImageRevealProps) {
           </PixelButton>
         </div>
       ) : (
-        <PixelButton onClick={advance}>...</PixelButton>
+        <PixelButton onClick={advance}>
+          {isLastLine ? (screen.continueLabel ?? "...") : "..."}
+        </PixelButton>
       )}
     </div>
   );

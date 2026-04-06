@@ -36,6 +36,8 @@ export interface ScreenNode {
   options?: string[];
   asset?: string;
   activityId?: string;
+  saveable?: boolean;
+  downloadName?: string;
   chapter?: string;
   continueLabel?: string;
   resetsGame?: boolean;

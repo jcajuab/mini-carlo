@@ -58,7 +58,6 @@ export async function downloadMemories(
 
     try {
       const img = new Image();
-      img.crossOrigin = "anonymous";
       await new Promise<void>((resolve, reject) => {
         img.onload = () => resolve();
         img.onerror = () => reject();

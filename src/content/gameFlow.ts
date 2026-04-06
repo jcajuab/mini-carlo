@@ -102,7 +102,7 @@ const screens: ScreenNode[] = [
       "Sitti has bravely volunteered to pay.",
       "This is now legally binding in this universe.",
     ],
-    asset: import.meta.env.BASE_URL + "assets/fake-payment-proof.png",
+    asset: import.meta.env.BASE_URL + "assets/payment-proof.jpg",
     continueLabel: "!!!",
   },
   {
@@ -147,6 +147,8 @@ const screens: ScreenNode[] = [
     type: "image-reveal",
     lines: ["Completely fake. Emotionally real."],
     asset: import.meta.env.BASE_URL + "assets/smiski-coupon.png",
+    saveable: true,
+    downloadName: "mini-carlo-coupon.png",
     next: "intermission-entry",
   },
   {
