@@ -3,18 +3,23 @@ import type { QuizQuestion } from "../types";
 export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     question: "What did Carlo order?",
-    options: ["Iced Latte", "Americano", "Caramel Macchiato", "Matcha Latte"],
-    correctAnswer: "Iced Latte",
+    options: [
+      "Iced Americano",
+      "Matcha Latte",
+      "Caramel Macchiato",
+      "Chai Latte",
+    ],
+    correctAnswer: "Matcha Latte",
   },
   {
     question: "What is Carlo's favorite color?",
-    options: ["Blue", "Green", "Black", "Purple"],
-    correctAnswer: "Blue",
+    options: ["Blue", "Red", "Green", "Purple"],
+    correctAnswer: "Red",
   },
   {
     question: "How old is Carlo?",
     options: ["21", "22", "23", "24"],
-    correctAnswer: "22",
+    correctAnswer: "23",
   },
 ];
 
