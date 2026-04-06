@@ -4,12 +4,12 @@ export const screens: ScreenNode[] = [
   // === START MENU ===
   { name: "start-menu", type: "start" },
 
-  // === INTRO — MINI CARLO ENTRY ===
+  // === INTRO ===
   {
     name: "intro-1",
     type: "dialogue",
     lines: [
-      "...Oh. Oh wow. A real human.",
+      "...Oh. A real human.",
       "Give me a second. I don't usually get perceived.",
     ],
   },
@@ -30,7 +30,7 @@ export const screens: ScreenNode[] = [
     name: "intro-choice",
     type: "choice",
     choiceId: "explain",
-    lines: ["Did he explain what this whole thing is about?"],
+    lines: ["Did he explain what this is about?"],
     options: ["Yes", "No"],
     next: (state) =>
       state.choices["explain"] === "Yes"
@@ -46,14 +46,14 @@ export const screens: ScreenNode[] = [
   {
     name: "intro-response-no",
     type: "dialogue",
-    lines: ["Oh perfect. I love explaining things I barely understand."],
+    lines: ["Perfect. I love explaining things I barely understand."],
     next: "intro-closing",
   },
   {
     name: "intro-closing",
     type: "dialogue",
     lines: [
-      "Anyway. Welcome to the officially unofficial, definitely not overengineered\u2026",
+      "Welcome to the officially unofficial\u2026",
       "\u201CDate\u201D Itinerary System\u2122.",
     ],
   },
@@ -74,35 +74,30 @@ export const screens: ScreenNode[] = [
     name: "map-explain",
     type: "map",
     lines: [
-      "Three stages. Simple. Clean. Emotionally devastating.",
+      "Three stages. Simple. Emotionally devastating.",
       "Each one? A test.",
-      "Not of love.",
       "Of memory. Coordination. And mild social endurance.",
     ],
   },
 
-  // === ACTIVITY 1 — INTERROGATION (COFFEE) ===
+  // === ACT I — COFFEE ===
   {
     name: "coffee-entry",
     type: "dialogue",
     chapter: "Act I \u2014 Coffee",
-    lines: [
-      "First stop: Coffee.",
-      "Also known as: the interrogation stage.",
-      "Where both of you pretend this is casual\u2026 while silently collecting data.",
-    ],
+    lines: ["First stop: Coffee.", "Also known as: the interrogation stage."],
   },
   {
     name: "coffee-choice",
     type: "choice",
     choiceId: "coffee",
-    lines: ["Pick your battlefield.", "Choose wisely. I'm logging everything."],
+    lines: ["Pick your battlefield."],
     options: ["Starbucks", "The Coffee Bean & Tea Leaf"],
   },
   {
     name: "coffee-response",
     type: "dialogue",
-    lines: ["Excellent choice. Statistically mid, but emotionally valid."],
+    lines: ["Statistically mid. Emotionally valid."],
   },
   {
     name: "payment-gag-intro",
@@ -114,7 +109,7 @@ export const screens: ScreenNode[] = [
     name: "payment-proof",
     type: "image-reveal",
     lines: [
-      "As you can see, Sitti has bravely volunteered to pay.",
+      "Sitti has bravely volunteered to pay.",
       "This is now legally binding in this universe.",
     ],
     asset: import.meta.env.BASE_URL + "assets/fake-payment-proof.png",
@@ -123,95 +118,64 @@ export const screens: ScreenNode[] = [
   {
     name: "coffee-realworld",
     type: "dialogue",
-    lines: [
-      "Go. Talk. Exchange lore.",
-      "Favorite color. Life plans. Deep fears. Surface-level jokes.",
-    ],
-  },
-  {
-    name: "coffee-waiting",
-    type: "dialogue",
-    lines: [
-      "I'll be here. Judging quietly.",
-      "When you're done\u2026 I'll need proof.",
-    ],
+    lines: ["Go. Talk. Exchange lore.", "I'll be here. Judging quietly."],
   },
   {
     name: "coffee-photo",
     type: "upload",
-    lines: ["Take a photo together.", "Not for surveillance.", "Mostly."],
+    lines: ["Take a photo together.", "Not for surveillance. Mostly."],
     activityId: "coffee",
   },
   {
     name: "coffee-photo-reaction",
     type: "dialogue",
-    lines: [
-      "Received.",
-      "Archiving under: evidence of voluntary human interaction.",
-    ],
+    lines: ["Received. Archiving."],
   },
 
-  // === ACTIVITY 1.5 — POP QUIZ ===
+  // === ACT I.V — POP QUIZ ===
   {
     name: "quiz-entry",
     type: "dialogue",
     chapter: "Act I.V \u2014 Pop Quiz",
     lines: [
-      "Oh good. You survived small talk.",
-      "Time to verify that information was actually retained.",
-    ],
-  },
-  {
-    name: "quiz-timer-intro",
-    type: "dialogue",
-    lines: [
-      "Pop Quiz initiated.",
-      "You have 5 minutes.",
-      "No pressure. Except all of it.",
+      "You survived small talk.",
+      "Time to verify that information was retained.",
+      "You have 5 minutes. No pressure. Except all of it.",
     ],
   },
   {
     name: "quiz",
     type: "quiz",
-    lines: ["Answer carefully. I am extremely judgmental."],
+    lines: ["Answer carefully."],
     next: (state) =>
       state.quizPassed ? "quiz-result-pass" : "quiz-result-fail",
   },
   {
     name: "quiz-result-pass",
     type: "dialogue",
-    lines: [
-      "Oh???",
-      "You were paying attention.",
-      "Terrifying. Impressive. Concerning.",
-      "You have earned this.",
-    ],
+    lines: ["Oh???", "You were paying attention.", "You have earned this."],
     next: "quiz-reward",
   },
   {
     name: "quiz-reward",
     type: "image-reveal",
-    lines: ["Completely fake.", "Emotionally real."],
+    lines: ["Completely fake. Emotionally real."],
     asset: import.meta.env.BASE_URL + "assets/smiski-coupon.png",
     next: "intermission-entry",
   },
   {
     name: "quiz-result-fail",
     type: "dialogue",
-    lines: ["\u2026Oh.", "Well.", "Memories are temporary anyway."],
+    lines: ["\u2026Oh.", "Memories are temporary anyway."],
     next: "intermission-entry",
   },
 
-  // === ACTIVITY 2 — INTERMISSION ===
+  // === ACT II — INTERMISSION ===
   {
     name: "intermission-entry",
     type: "dialogue",
     chapter: "Act II \u2014 Intermission",
-    lines: [
-      "Phase two.",
-      "Less talking. More doing.",
-      "Or\u2026 sitting in silence next to a large screen.",
-    ],
+    lines: ["Phase two.", "Less talking. More doing."],
   },
   {
     name: "intermission-choice",
@@ -224,90 +188,62 @@ export const screens: ScreenNode[] = [
     name: "intermission-response",
     type: "dialogue",
     lines: [
-      "Excellent.",
-      "Financial reminder:",
-      "This one is 50/50.",
-      "I checked. No loopholes.",
-    ],
-  },
-  {
-    name: "intermission-dinner-hint",
-    type: "dialogue",
-    lines: [
-      "Relax though.",
-      "Carlo handles dinner.",
-      "He insisted.",
-      "I wrote it down.",
+      "This one is 50/50. No loopholes.",
+      "Relax though. Carlo handles dinner. He insisted.",
     ],
   },
   {
     name: "intermission-realworld",
     type: "dialogue",
-    lines: ["Go enjoy it.", "Compete. React. Exist.", "I'll be waiting."],
+    lines: ["Go enjoy it. I'll be waiting."],
   },
   {
     name: "intermission-photo",
     type: "upload",
-    lines: ["Documentation required again.", "Yes, I am building a case file."],
+    lines: ["Documentation required."],
     activityId: "intermission",
   },
   {
     name: "intermission-photo-reaction",
     type: "dialogue",
-    lines: ["Noted.", "The case file grows stronger."],
+    lines: ["Noted."],
   },
 
-  // === ACTIVITY 3 — DINNER ===
+  // === ACT III — DINNER ===
   {
     name: "dinner-entry",
     type: "dialogue",
     chapter: "Act III \u2014 Dinner",
-    lines: [
-      "Final stage.",
-      "Dinner.",
-      "The socially accepted reward for surviving everything prior.",
-    ],
+    lines: ["Final stage. Dinner."],
   },
   {
     name: "dinner-prompt",
     type: "dialogue",
     lines: [
-      "No choices here.",
-      "Carlo picks.",
-      "He is now fully responsible for outcomes.",
-    ],
-  },
-  {
-    name: "dinner-realworld",
-    type: "dialogue",
-    lines: [
-      "Eat.",
-      "Talk.",
-      "Try not to overthink anything.",
-      "I'll be here when you get back.",
+      "No choices here. Carlo picks.",
+      "Eat. Talk. Try not to overthink anything.",
     ],
   },
   {
     name: "dinner-photo",
     type: "upload",
-    lines: ["One last photo.", "For the archives."],
+    lines: ["One last photo. For the archives."],
     activityId: "dinner",
   },
   {
     name: "dinner-photo-reaction",
     type: "dialogue",
     chapter: "",
-    lines: ["Filed.", "That's all the evidence I need."],
+    lines: ["Filed."],
   },
 
-  // === ENDING — MEMORY COMPILATION ===
+  // === ENDING ===
   {
     name: "ending-entry",
     type: "dialogue",
     lines: [
       "Compiling memories\u2026",
-      "Do not close your eyes.",
-      "That does nothing but it sounds dramatic.",
+      "Do not close your eyes. That does nothing but it sounds dramatic.",
     ],
   },
   {
@@ -318,7 +254,7 @@ export const screens: ScreenNode[] = [
     name: "final-question",
     type: "choice",
     choiceId: "enjoy",
-    lines: ["So.", "Did you enjoy the \u201Cdate\u201D?"],
+    lines: ["Did you enjoy the \u201Cdate\u201D?"],
     options: ["Yes", "No"],
     next: (state) =>
       state.choices["enjoy"] === "Yes" ? "final-closing" : "ending-no-quip",
@@ -326,15 +262,14 @@ export const screens: ScreenNode[] = [
   {
     name: "ending-no-quip",
     type: "dialogue",
-    lines: ["That's statistically improbable. Proceeding anyway."],
+    lines: ["Statistically improbable. Proceeding anyway."],
     next: "final-closing",
   },
   {
     name: "final-closing",
     type: "dialogue",
     lines: [
-      "Not bad.",
-      "Not bad at all.",
+      "Not bad. Not bad at all.",
       "I'll\u2026 log this as a successful run.",
     ],
     continueLabel: "BYE",
