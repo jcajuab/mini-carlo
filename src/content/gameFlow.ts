@@ -109,7 +109,7 @@ export const screens: ScreenNode[] = [
     type: "choice",
     choiceId: "coffee",
     lines: ["Pick your battlefield.", "Choose wisely. I'm logging everything."],
-    options: ["Starbucks", "Coffee Bean & Tea Leaf"],
+    options: ["Starbucks", "The Coffee Bean & Tea Leaf"],
   },
   {
     name: "coffee-response",
@@ -138,20 +138,22 @@ export const screens: ScreenNode[] = [
     lines: [
       "Go. Talk. Exchange lore.",
       "Favorite color. Life plans. Deep fears. Surface-level jokes.",
+    ],
+    continueLabel: "...",
+  },
+  {
+    name: "coffee-waiting",
+    type: "dialogue",
+    lines: [
       "I'll be here. Judging quietly.",
+      "When you're done\u2026 I'll need proof.",
     ],
     continueLabel: "...",
   },
   {
     name: "coffee-photo",
     type: "upload",
-    lines: [
-      "Proof required.",
-      "Take a photo together.",
-      "Not for surveillance.",
-      "Mostly.",
-      "Upload when ready.",
-    ],
+    lines: ["Take a photo together.", "Not for surveillance.", "Mostly."],
     activityId: "coffee",
   },
 
@@ -254,17 +256,13 @@ export const screens: ScreenNode[] = [
   {
     name: "activity2-realworld",
     type: "dialogue",
-    lines: ["Go enjoy it.", "Compete. React. Exist."],
+    lines: ["Go enjoy it.", "Compete. React. Exist.", "I'll be waiting."],
     continueLabel: "...",
   },
   {
     name: "activity2-photo",
     type: "upload",
-    lines: [
-      "Documentation required again.",
-      "Yes, I am building a case file.",
-      "Upload your photo.",
-    ],
+    lines: ["Documentation required again.", "Yes, I am building a case file."],
     activityId: "activity2",
   },
 
@@ -293,7 +291,12 @@ export const screens: ScreenNode[] = [
   {
     name: "dinner-realworld",
     type: "dialogue",
-    lines: ["Eat.", "Talk.", "Try not to overthink anything."],
+    lines: [
+      "Eat.",
+      "Talk.",
+      "Try not to overthink anything.",
+      "I'll be here when you get back.",
+    ],
     continueLabel: "...",
   },
   {
