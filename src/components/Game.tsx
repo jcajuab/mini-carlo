@@ -130,31 +130,45 @@ export function Game({ state, dispatch }: GameProps) {
         alignItems: "center",
         width: "100%",
         flex: 1,
-        justifyContent: "center",
+        minHeight: 0,
       }}
     >
+      {/* Chapter header pinned to top */}
       {screen.chapter && <ChapterHeader title={screen.chapter} />}
-      {content}
+
+      {/* Content centered in remaining space */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
+        {content}
+      </div>
+
+      {/* Reset pinned to bottom */}
       {state.gameStarted && (
         <button
           onClick={handleReset}
           style={{
-            marginTop: "auto",
-            paddingTop: "24px",
-            paddingBottom: "8px",
+            padding: "8px 16px",
             background: "none",
             border: "none",
             cursor: "pointer",
             fontFamily: "var(--font-pixel)",
             fontSize: "6px",
             color: "var(--text-secondary)",
-            opacity: 0.4,
+            opacity: 0.3,
             transition: "opacity 0.2s",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.4")}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.3")}
         >
-          reset
+          restart
         </button>
       )}
     </div>
