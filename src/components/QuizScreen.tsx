@@ -14,6 +14,7 @@ export function QuizScreen({ dispatch }: QuizScreenProps) {
   const [answers, setAnswers] = useState<string[]>(
     new Array(QUIZ_QUESTIONS.length).fill(""),
   );
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const submittedRef = useRef(false);
 
   const handleSubmit = useCallback(
@@ -35,7 +36,9 @@ export function QuizScreen({ dispatch }: QuizScreenProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const allAnswered = answers.every((a) => a !== "");
+  const q = QUIZ_QUESTIONS[currentQuestion];
+  const isLastQuestion = currentQuestion === QUIZ_QUESTIONS.length - 1;
+  const hasAnswer = answers[currentQuestion] !== "";
 
   return (
     <div
@@ -49,53 +52,65 @@ export function QuizScreen({ dispatch }: QuizScreenProps) {
     >
       <Timer secondsLeft={secondsLeft} />
 
-      {QUIZ_QUESTIONS.map((q, qi) => (
-        <div
-          key={qi}
-          style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            gap: "8px",
-          }}
-        >
-          <DialogueBox speaker={`Q${qi + 1}`}>{q.question}</DialogueBox>
-          <div
+      {/* Question counter */}
+      <div
+        style={{
+          fontSize: "var(--font-size-sm)",
+          color: "var(--text-secondary)",
+        }}
+      >
+        Question {currentQuestion + 1} / {QUIZ_QUESTIONS.length}
+      </div>
+
+      <DialogueBox speaker={`Q${currentQuestion + 1}`}>
+        {q.question}
+      </DialogueBox>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
+          width: "100%",
+        }}
+      >
+        {q.options.map((opt) => (
+          <PixelButton
+            key={opt}
+            variant={answers[currentQuestion] === opt ? "primary" : "secondary"}
             style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "6px",
+              width: "100%",
+              fontSize: "var(--font-size-sm)",
+              padding: "10px 16px",
+            }}
+            onClick={() => {
+              const newAnswers = [...answers];
+              newAnswers[currentQuestion] = opt;
+              setAnswers(newAnswers);
             }}
           >
-            {q.options.map((opt) => (
-              <PixelButton
-                key={opt}
-                variant={answers[qi] === opt ? "primary" : "secondary"}
-                style={{
-                  width: "100%",
-                  fontSize: "var(--font-size-sm)",
-                  padding: "10px 16px",
-                }}
-                onClick={() => {
-                  const newAnswers = [...answers];
-                  newAnswers[qi] = opt;
-                  setAnswers(newAnswers);
-                }}
-              >
-                {opt}
-              </PixelButton>
-            ))}
-          </div>
-        </div>
-      ))}
+            {opt}
+          </PixelButton>
+        ))}
+      </div>
 
-      <PixelButton
-        disabled={!allAnswered}
-        style={{ opacity: allAnswered ? 1 : 0.5 }}
-        onClick={() => handleSubmit(answers)}
-      >
-        Submit
-      </PixelButton>
+      {isLastQuestion ? (
+        <PixelButton
+          disabled={!hasAnswer}
+          style={{ opacity: hasAnswer ? 1 : 0.5 }}
+          onClick={() => handleSubmit(answers)}
+        >
+          Submit
+        </PixelButton>
+      ) : (
+        <PixelButton
+          disabled={!hasAnswer}
+          style={{ opacity: hasAnswer ? 1 : 0.5 }}
+          onClick={() => setCurrentQuestion((prev) => prev + 1)}
+        >
+          Next
+        </PixelButton>
+      )}
     </div>
   );
 }

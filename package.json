@@ -2,6 +2,7 @@
   "name": "mini-carlo",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "pnpm@10.28.0",
   "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",

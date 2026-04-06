@@ -104,7 +104,7 @@ export const screens: ScreenNode[] = [
       "As you can see, Sitti has bravely volunteered to pay.",
       "This is now legally binding in this universe.",
     ],
-    asset: import.meta.env.BASE_URL + "assets/fake-payment-proof.svg",
+    asset: import.meta.env.BASE_URL + "assets/fake-payment-proof.png",
   },
   {
     name: "coffee-realworld",
@@ -168,7 +168,7 @@ export const screens: ScreenNode[] = [
     name: "quiz-reward",
     type: "image-reveal",
     lines: ["Completely fake.", "Emotionally real."],
-    asset: import.meta.env.BASE_URL + "assets/smiski-coupon.svg",
+    asset: import.meta.env.BASE_URL + "assets/smiski-coupon.png",
     next: "activity2-entry",
   },
   {
