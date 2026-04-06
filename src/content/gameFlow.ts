@@ -12,13 +12,11 @@ export const screens: ScreenNode[] = [
       "...Oh. Oh wow. A real human.",
       "Give me a second. I don't usually get perceived.",
     ],
-    continueLabel: "...",
   },
   {
     name: "intro-2",
     type: "dialogue",
     lines: ["So you're Sitti. That means... yeah. You've met him."],
-    continueLabel: "Yeah...",
   },
   {
     name: "intro-3",
@@ -43,14 +41,12 @@ export const screens: ScreenNode[] = [
     name: "intro-response-yes",
     type: "dialogue",
     lines: ["...Suspicious. I don't trust his communication skills."],
-    continueLabel: "...",
     next: "intro-closing",
   },
   {
     name: "intro-response-no",
     type: "dialogue",
     lines: ["Oh perfect. I love explaining things I barely understand."],
-    continueLabel: "...",
     next: "intro-closing",
   },
   {
@@ -60,26 +56,20 @@ export const screens: ScreenNode[] = [
       "Anyway. Welcome to the officially unofficial, definitely not overengineered\u2026",
       "\u201CDate\u201D Itinerary System\u2122.",
     ],
-    continueLabel: "*claps*",
   },
 
   // === MAP REVEAL ===
-  // Step 1: Mini Carlo says "Observe."
   {
     name: "map-observe",
     type: "dialogue",
     lines: ["Observe."],
-    continueLabel: "...",
     next: "map-dramatic",
   },
-  // Step 2: Map appears alone — dramatic reveal, no dialogue
   {
     name: "map-dramatic",
     type: "map",
-    continueLabel: "...",
     next: "map-explain",
   },
-  // Step 3: Mini Carlo reappears with the map and explains
   {
     name: "map-explain",
     type: "map",
@@ -89,7 +79,6 @@ export const screens: ScreenNode[] = [
       "Not of love.",
       "Of memory. Coordination. And mild social endurance.",
     ],
-    continueLabel: "...",
   },
 
   // === ACTIVITY 1 — INTERROGATION (COFFEE) ===
@@ -102,7 +91,6 @@ export const screens: ScreenNode[] = [
       "Also known as: the interrogation stage.",
       "Where both of you pretend this is casual\u2026 while silently collecting data.",
     ],
-    continueLabel: "...",
   },
   {
     name: "coffee-choice",
@@ -115,7 +103,6 @@ export const screens: ScreenNode[] = [
     name: "coffee-response",
     type: "dialogue",
     lines: ["Excellent choice. Statistically mid, but emotionally valid."],
-    continueLabel: "...",
   },
   {
     name: "payment-gag-intro",
@@ -139,7 +126,6 @@ export const screens: ScreenNode[] = [
       "Go. Talk. Exchange lore.",
       "Favorite color. Life plans. Deep fears. Surface-level jokes.",
     ],
-    continueLabel: "...",
   },
   {
     name: "coffee-waiting",
@@ -148,13 +134,20 @@ export const screens: ScreenNode[] = [
       "I'll be here. Judging quietly.",
       "When you're done\u2026 I'll need proof.",
     ],
-    continueLabel: "...",
   },
   {
     name: "coffee-photo",
     type: "upload",
     lines: ["Take a photo together.", "Not for surveillance.", "Mostly."],
     activityId: "coffee",
+  },
+  {
+    name: "coffee-photo-reaction",
+    type: "dialogue",
+    lines: [
+      "Received.",
+      "Archiving under: evidence of voluntary human interaction.",
+    ],
   },
 
   // === ACTIVITY 1.5 — POP QUIZ ===
@@ -166,7 +159,6 @@ export const screens: ScreenNode[] = [
       "Oh good. You survived small talk.",
       "Time to verify that information was actually retained.",
     ],
-    continueLabel: "...",
   },
   {
     name: "quiz-timer-intro",
@@ -176,7 +168,6 @@ export const screens: ScreenNode[] = [
       "You have 5 minutes.",
       "No pressure. Except all of it.",
     ],
-    continueLabel: "...",
   },
   {
     name: "quiz",
@@ -194,7 +185,6 @@ export const screens: ScreenNode[] = [
       "Terrifying. Impressive. Concerning.",
       "You have earned this.",
     ],
-    continueLabel: "!!!",
     next: "quiz-reward",
   },
   {
@@ -208,7 +198,6 @@ export const screens: ScreenNode[] = [
     name: "quiz-result-fail",
     type: "dialogue",
     lines: ["\u2026Oh.", "Well.", "Memories are temporary anyway."],
-    continueLabel: "...",
     next: "activity2-entry",
   },
 
@@ -222,7 +211,6 @@ export const screens: ScreenNode[] = [
       "Less talking. More doing.",
       "Or\u2026 sitting in silence next to a large screen.",
     ],
-    continueLabel: "...",
   },
   {
     name: "activity2-choice",
@@ -240,7 +228,6 @@ export const screens: ScreenNode[] = [
       "This one is 50/50.",
       "I checked. No loopholes.",
     ],
-    continueLabel: "...",
   },
   {
     name: "activity2-dinner-hint",
@@ -251,19 +238,22 @@ export const screens: ScreenNode[] = [
       "He insisted.",
       "I wrote it down.",
     ],
-    continueLabel: "...",
   },
   {
     name: "activity2-realworld",
     type: "dialogue",
     lines: ["Go enjoy it.", "Compete. React. Exist.", "I'll be waiting."],
-    continueLabel: "...",
   },
   {
     name: "activity2-photo",
     type: "upload",
     lines: ["Documentation required again.", "Yes, I am building a case file."],
     activityId: "activity2",
+  },
+  {
+    name: "activity2-photo-reaction",
+    type: "dialogue",
+    lines: ["Noted.", "The case file grows stronger."],
   },
 
   // === ACTIVITY 3 — DINNER ===
@@ -276,7 +266,6 @@ export const screens: ScreenNode[] = [
       "Dinner.",
       "The socially accepted reward for surviving everything prior.",
     ],
-    continueLabel: "...",
   },
   {
     name: "dinner-prompt",
@@ -286,7 +275,6 @@ export const screens: ScreenNode[] = [
       "Carlo picks.",
       "He is now fully responsible for outcomes.",
     ],
-    continueLabel: "...",
   },
   {
     name: "dinner-realworld",
@@ -297,7 +285,6 @@ export const screens: ScreenNode[] = [
       "Try not to overthink anything.",
       "I'll be here when you get back.",
     ],
-    continueLabel: "...",
   },
   {
     name: "dinner-photo",
@@ -305,6 +292,12 @@ export const screens: ScreenNode[] = [
     lines: ["One last photo.", "For the archives."],
     activityId: "dinner",
   },
+  {
+    name: "dinner-photo-reaction",
+    type: "dialogue",
+    lines: ["Filed.", "That's all the evidence I need."],
+  },
+
   // === ENDING — MEMORY COMPILATION ===
   {
     name: "ending-entry",
@@ -315,7 +308,6 @@ export const screens: ScreenNode[] = [
       "Do not close your eyes.",
       "That does nothing but it sounds dramatic.",
     ],
-    continueLabel: "...",
   },
   {
     name: "ending",
@@ -334,7 +326,6 @@ export const screens: ScreenNode[] = [
     name: "ending-no-quip",
     type: "dialogue",
     lines: ["That's statistically improbable. Proceeding anyway."],
-    continueLabel: "...",
     next: "final-closing",
   },
   {
@@ -345,7 +336,6 @@ export const screens: ScreenNode[] = [
       "Not bad at all.",
       "I'll\u2026 log this as a successful run.",
     ],
-    continueLabel: "...",
   },
 ];
 
