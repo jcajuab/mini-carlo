@@ -78,7 +78,7 @@ export function Game({ state, dispatch }: GameProps) {
       return <QuizScreen dispatch={dispatch} />;
 
     case "ending":
-      return <EndingScreen state={state} />;
+      return <EndingScreen state={state} dispatch={dispatch} />;
 
     default:
       return null;

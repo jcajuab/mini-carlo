@@ -1,12 +1,14 @@
-import type { GameState } from "../types";
+import type { GameState, GameAction } from "../types";
 import { DialogueBox } from "./ui/DialogueBox";
 import { PhotoGallery } from "./ui/PhotoGallery";
+import { PixelButton } from "./ui/PixelButton";
 
 interface EndingScreenProps {
   state: GameState;
+  dispatch: React.Dispatch<GameAction>;
 }
 
-export function EndingScreen({ state }: EndingScreenProps) {
+export function EndingScreen({ state, dispatch }: EndingScreenProps) {
   const photoActivityIds = state.photos.map((p) => p.activityId);
 
   return (
@@ -120,6 +122,18 @@ export function EndingScreen({ state }: EndingScreenProps) {
       >
         &mdash; Mini Carlo &trade; &mdash;
       </div>
+
+      {/* Reset button */}
+      <PixelButton
+        variant="secondary"
+        style={{ fontSize: "var(--font-size-sm)", marginTop: "8px" }}
+        onClick={() => {
+          localStorage.removeItem("mini-carlo-state");
+          dispatch({ type: "RESET_GAME" });
+        }}
+      >
+        Reset Game
+      </PixelButton>
     </div>
   );
 }

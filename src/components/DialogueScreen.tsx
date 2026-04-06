@@ -16,6 +16,7 @@ export function DialogueScreen({
   const lines = screen.lines ?? [];
   const currentLine = lines[lineIndex] ?? "";
   const isLastLine = lineIndex >= lines.length - 1;
+  const label = screen.continueLabel ?? "...";
 
   return (
     <div
@@ -33,7 +34,7 @@ export function DialogueScreen({
           dispatch({ type: isLastLine ? "NEXT_SCREEN" : "NEXT_LINE" })
         }
       >
-        {isLastLine ? "Continue" : "..."}
+        {isLastLine ? label : "..."}
       </PixelButton>
     </div>
   );

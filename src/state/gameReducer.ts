@@ -103,6 +103,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       return { ...state, currentScreenName: nextName, dialogueLineIndex: 0 };
     }
 
+    case "RESET_GAME":
+      return initialState;
+
     default:
       return state;
   }

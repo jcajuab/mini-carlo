@@ -38,6 +38,7 @@ export interface ScreenNode {
   options?: string[];
   asset?: string;
   activityId?: string;
+  continueLabel?: string;
   next?: string | ((state: GameState) => string);
 }
 
@@ -48,4 +49,5 @@ export type GameAction =
   | { type: "MAKE_CHOICE"; choiceId: string; option: string }
   | { type: "SUBMIT_QUIZ"; answers: string[] }
   | { type: "PHOTO_SAVED"; activityId: string }
-  | { type: "PHOTO_SKIPPED"; activityId: string };
+  | { type: "PHOTO_SKIPPED"; activityId: string }
+  | { type: "RESET_GAME" };
