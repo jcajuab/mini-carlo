@@ -64,17 +64,24 @@ export const screens: ScreenNode[] = [
   },
 
   // === MAP REVEAL ===
-  // Step 1: Mini Carlo says "Observe." alone
+  // Step 1: Mini Carlo says "Observe."
   {
     name: "map-observe",
     type: "dialogue",
     lines: ["Observe."],
     continueLabel: "...",
-    next: "map-reveal",
+    next: "map-dramatic",
   },
-  // Step 2: Map appears with dialogue
+  // Step 2: Map appears alone — dramatic reveal, no dialogue
   {
-    name: "map-reveal",
+    name: "map-dramatic",
+    type: "map",
+    continueLabel: "...",
+    next: "map-explain",
+  },
+  // Step 3: Mini Carlo reappears with the map and explains
+  {
+    name: "map-explain",
     type: "map",
     lines: [
       "Three stages. Simple. Clean. Emotionally devastating.",
@@ -82,6 +89,7 @@ export const screens: ScreenNode[] = [
       "Not of love.",
       "Of memory. Coordination. And mild social endurance.",
     ],
+    continueLabel: "...",
   },
 
   // === ACTIVITY 1 — INTERROGATION (COFFEE) ===

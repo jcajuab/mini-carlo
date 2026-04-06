@@ -298,9 +298,33 @@ function AdventureMap() {
 
 export function MapScreen({ screen, lineIndex, dispatch }: MapScreenProps) {
   const lines = screen.lines ?? [];
+  const hasLines = lines.length > 0;
   const currentLine = lines[lineIndex] ?? "";
   const isLastLine = lineIndex >= lines.length - 1;
+  const label = screen.continueLabel ?? "...";
 
+  // Map-only mode: no dialogue, just the map dramatically
+  if (!hasLines) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "24px",
+          width: "100%",
+          alignItems: "center",
+        }}
+      >
+        <AdventureMap />
+
+        <PixelButton onClick={() => dispatch({ type: "NEXT_SCREEN" })}>
+          {label}
+        </PixelButton>
+      </div>
+    );
+  }
+
+  // Map + dialogue mode
   return (
     <div
       style={{
@@ -320,7 +344,7 @@ export function MapScreen({ screen, lineIndex, dispatch }: MapScreenProps) {
           dispatch({ type: isLastLine ? "NEXT_SCREEN" : "NEXT_LINE" })
         }
       >
-        {isLastLine ? "Continue" : "..."}
+        {isLastLine ? label : "..."}
       </PixelButton>
     </div>
   );
