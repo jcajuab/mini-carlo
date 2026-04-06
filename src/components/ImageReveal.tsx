@@ -8,10 +8,19 @@ interface ImageRevealProps {
   dispatch: React.Dispatch<GameAction>;
 }
 
+function downloadImage(src: string, filename: string) {
+  const a = document.createElement("a");
+  a.href = src;
+  a.download = filename;
+  a.click();
+}
+
 export function ImageReveal({ screen, lineIndex, dispatch }: ImageRevealProps) {
   const lines = screen.lines ?? [];
   const currentLine = lines[lineIndex] ?? "";
   const isLastLine = lineIndex >= lines.length - 1;
+  const advance = () =>
+    dispatch({ type: isLastLine ? "NEXT_SCREEN" : "NEXT_LINE" });
 
   return (
     <div
@@ -48,13 +57,23 @@ export function ImageReveal({ screen, lineIndex, dispatch }: ImageRevealProps) {
 
       <DialogueBox speaker="Mini Carlo">{currentLine}</DialogueBox>
 
-      <PixelButton
-        onClick={() =>
-          dispatch({ type: isLastLine ? "NEXT_SCREEN" : "NEXT_LINE" })
-        }
-      >
-        {isLastLine ? (screen.continueLabel ?? "...") : "..."}
-      </PixelButton>
+      {isLastLine && screen.asset ? (
+        <div style={{ display: "flex", gap: "12px" }}>
+          <PixelButton
+            onClick={() => {
+              downloadImage(screen.asset!, "mini-carlo-evidence.png");
+              advance();
+            }}
+          >
+            Save
+          </PixelButton>
+          <PixelButton variant="secondary" onClick={advance}>
+            Skip
+          </PixelButton>
+        </div>
+      ) : (
+        <PixelButton onClick={advance}>...</PixelButton>
+      )}
     </div>
   );
 }
