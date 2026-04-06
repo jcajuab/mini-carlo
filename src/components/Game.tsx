@@ -108,7 +108,7 @@ export function Game({ state, dispatch }: GameProps) {
       break;
 
     case "ending":
-      content = <EndingScreen state={state} dispatch={dispatch} />;
+      content = <EndingScreen dispatch={dispatch} />;
       break;
 
     default:

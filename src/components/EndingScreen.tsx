@@ -1,16 +1,15 @@
 import { useEffect, useState, useRef, useCallback } from "react";
-import type { GameState, GameAction } from "../types";
+import type { GameAction } from "../types";
 import { getPhoto } from "../db/photoDb";
 import { PixelButton } from "./ui/PixelButton";
 
 interface EndingScreenProps {
-  state: GameState;
   dispatch: React.Dispatch<GameAction>;
 }
 
 const ACTIVITY_IDS = ["coffee", "activity2", "dinner"];
 
-export function EndingScreen({ state, dispatch }: EndingScreenProps) {
+export function EndingScreen({ dispatch }: EndingScreenProps) {
   const [photoUrls, setPhotoUrls] = useState<Record<string, string>>({});
   const [loaded, setLoaded] = useState(false);
   const stripRef = useRef<HTMLDivElement>(null);
@@ -313,67 +312,6 @@ export function EndingScreen({ state, dispatch }: EndingScreenProps) {
           </div>
         </div>
       )}
-
-      {/* Choices summary */}
-      <div
-        style={{
-          border: "3px solid var(--border-color)",
-          backgroundColor: "var(--bg-secondary)",
-          padding: "16px",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "var(--font-size-sm)",
-            color: "var(--text-accent)",
-            marginBottom: "12px",
-          }}
-        >
-          You chose:
-        </div>
-        <div
-          style={{
-            fontSize: "var(--font-size-sm)",
-            lineHeight: "2.2",
-            color: "var(--text-primary)",
-          }}
-        >
-          <div>Coffee: {state.choices["coffee"] ?? "???"}</div>
-          <div>Activity: {state.choices["activity"] ?? "???"}</div>
-        </div>
-      </div>
-
-      {/* What you did */}
-      <div
-        style={{
-          border: "3px solid var(--border-color)",
-          backgroundColor: "var(--bg-secondary)",
-          padding: "16px",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "var(--font-size-sm)",
-            color: "var(--text-accent)",
-            marginBottom: "12px",
-          }}
-        >
-          You:
-        </div>
-        <div
-          style={{
-            fontSize: "var(--font-size-sm)",
-            lineHeight: "2.2",
-            color: "var(--text-primary)",
-          }}
-        >
-          <div>- Took photos</div>
-          <div>- Answered questions</div>
-          <div>- Participated in a structured human interaction event</div>
-        </div>
-      </div>
 
       {/* Download button */}
       {hasPhotos && (
