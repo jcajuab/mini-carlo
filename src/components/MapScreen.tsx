@@ -200,7 +200,7 @@ function AdventureMap() {
               fontSize="7"
               fontFamily="'Press Start 2P', monospace"
             >
-              Activity
+              Intermission
             </text>
           </g>
 

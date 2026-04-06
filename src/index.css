@@ -41,37 +41,23 @@ html {
 
 body {
   font-family: var(--font-pixel);
-  background-color: #0d0d1a;
+  background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100dvh;
   overflow-x: hidden;
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-/* Retro border frame around the entire game */
 #root {
-  min-height: calc(100dvh - 32px);
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
   max-width: 480px;
-  width: calc(100% - 32px);
-  margin: 16px auto;
-  background-color: var(--bg-primary);
-  border: 3px solid #2a2a4e;
-  box-shadow:
-    inset 0 0 0 2px var(--bg-primary),
-    inset 0 0 0 4px #1e1e3a,
-    0 0 0 2px #0f3460,
-    0 0 0 5px #2a2a4e,
-    0 0 30px rgba(15, 52, 96, 0.3);
-  position: relative;
+  margin: 0 auto;
 }
 
 img {

@@ -116,7 +116,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
       ctx.fillStyle = "#a8a8a8";
       ctx.font = "8px 'Press Start 2P', monospace";
       ctx.textAlign = "center";
-      const labels = ["Coffee", "Activity", "Dinner"];
+      const labels = ["Coffee", "Intermission", "Dinner"];
       ctx.fillText(labels[i], w / 2, y + photoH + 20);
     }
 
@@ -291,7 +291,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
                     marginTop: "4px",
                   }}
                 >
-                  {["Coffee", "Activity", "Dinner"][i]}
+                  {["Coffee", "Intermission", "Dinner"][i]}
                 </div>
               </div>
             ))}
