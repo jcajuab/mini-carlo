@@ -296,6 +296,7 @@ export const screens: ScreenNode[] = [
   {
     name: "dinner-photo-reaction",
     type: "dialogue",
+    chapter: "",
     lines: ["Filed.", "That's all the evidence I need."],
   },
 

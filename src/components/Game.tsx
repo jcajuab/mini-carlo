@@ -44,7 +44,7 @@ export function Game({ state, dispatch }: GameProps) {
     if (!screen) return null;
     const idx = screens.findIndex((s) => s.name === screen.name);
     for (let i = idx; i >= 0; i--) {
-      if (screens[i].chapter) return screens[i].chapter;
+      if (screens[i].chapter !== undefined) return screens[i].chapter || null;
     }
     return null;
   }, [screen]);
