@@ -16,12 +16,15 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
   const isLastLine = lineIndex >= lines.length - 1;
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
+  const galleryRef = useRef<HTMLInputElement>(null);
+  const cameraRef = useRef<HTMLInputElement>(null);
   const { save } = usePhotos();
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !screen.activityId) return;
+
+    e.target.value = "";
 
     setUploading(true);
     setError(null);
@@ -49,7 +52,14 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
       {isLastLine ? (
         <>
           <input
-            ref={fileRef}
+            ref={galleryRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFile}
+            style={{ display: "none" }}
+          />
+          <input
+            ref={cameraRef}
             type="file"
             accept="image/*"
             capture="environment"
@@ -57,12 +67,31 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
             style={{ display: "none" }}
           />
 
-          <PixelButton
-            onClick={() => fileRef.current?.click()}
-            disabled={uploading}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              width: "100%",
+              alignItems: "center",
+            }}
           >
-            {uploading ? "Saving..." : "Upload Photo"}
-          </PixelButton>
+            <PixelButton
+              onClick={() => galleryRef.current?.click()}
+              disabled={uploading}
+              style={{ width: "100%", maxWidth: "280px" }}
+            >
+              {uploading ? "Saving..." : "Choose from Gallery"}
+            </PixelButton>
+            <PixelButton
+              variant="secondary"
+              onClick={() => cameraRef.current?.click()}
+              disabled={uploading}
+              style={{ width: "100%", maxWidth: "280px" }}
+            >
+              Take a Photo
+            </PixelButton>
+          </div>
 
           {error && (
             <div
