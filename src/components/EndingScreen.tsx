@@ -46,23 +46,19 @@ function SprocketColumn({ side }: { side: "left" | "right" }) {
 function FilmStrip({
   photoIds,
   photoUrls,
-  onClick,
 }: {
   photoIds: string[];
   photoUrls: Record<string, string>;
-  onClick: () => void;
 }) {
   return (
     <div
-      onClick={onClick}
       style={{
         width: "100%",
-        maxWidth: "340px",
+        maxWidth: "380px",
         backgroundColor: "var(--bg-secondary)",
         position: "relative",
         padding: "10px 0",
         border: "3px solid var(--border-color)",
-        cursor: "pointer",
       }}
     >
       <SprocketColumn side="left" />
@@ -103,7 +99,7 @@ function FilmStrip({
                 alt={`Photo ${i + 1}`}
                 style={{
                   width: "100%",
-                  height: "120px",
+                  height: "140px",
                   objectFit: "cover",
                   display: "block",
                   imageRendering: "auto",
@@ -128,61 +124,9 @@ function FilmStrip({
   );
 }
 
-function Modal({
-  photoIds,
-  photoUrls,
-  onSave,
-  onClose,
-}: {
-  photoIds: string[];
-  photoUrls: Record<string, string>;
-  onSave: () => void;
-  onClose: () => void;
-}) {
-  return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.85)",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 100,
-        padding: "16px",
-      }}
-    >
-      <div
-        style={{
-          maxHeight: "80svh",
-          overflowY: "auto",
-          width: "100%",
-          maxWidth: "400px",
-        }}
-      >
-        <FilmStrip photoIds={photoIds} photoUrls={photoUrls} onClick={onSave} />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          gap: "12px",
-          marginTop: "16px",
-        }}
-      >
-        <PixelButton onClick={onSave}>Save</PixelButton>
-        <PixelButton variant="secondary" onClick={onClose}>
-          Close
-        </PixelButton>
-      </div>
-    </div>
-  );
-}
-
 export function EndingScreen({ dispatch }: EndingScreenProps) {
   const [photoUrls, setPhotoUrls] = useState<Record<string, string>>({});
   const [loaded, setLoaded] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -233,45 +177,27 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
   }
 
   return (
-    <>
-      {modalOpen && (
-        <Modal
-          photoIds={photoIds}
-          photoUrls={photoUrls}
-          onSave={handleDownload}
-          onClose={() => setModalOpen(false)}
-        />
-      )}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "16px",
-          width: "100%",
-          alignItems: "center",
-          paddingBottom: "16px",
-        }}
-      >
-        {hasPhotos && (
-          <FilmStrip
-            photoIds={photoIds}
-            photoUrls={photoUrls}
-            onClick={() => setModalOpen(true)}
-          />
-        )}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "16px",
+        width: "100%",
+        alignItems: "center",
+        paddingBottom: "16px",
+      }}
+    >
+      {hasPhotos && <FilmStrip photoIds={photoIds} photoUrls={photoUrls} />}
 
-        <div style={{ display: "flex", gap: "12px" }}>
-          {hasPhotos && (
-            <PixelButton onClick={handleDownload}>Save</PixelButton>
-          )}
-          <PixelButton
-            variant="secondary"
-            onClick={() => dispatch({ type: "NEXT_SCREEN" })}
-          >
-            Continue
-          </PixelButton>
-        </div>
+      <div style={{ display: "flex", gap: "12px" }}>
+        {hasPhotos && <PixelButton onClick={handleDownload}>Save</PixelButton>}
+        <PixelButton
+          variant="secondary"
+          onClick={() => dispatch({ type: "NEXT_SCREEN" })}
+        >
+          Skip
+        </PixelButton>
       </div>
-    </>
+    </div>
   );
 }
