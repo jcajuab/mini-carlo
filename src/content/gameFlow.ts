@@ -1,6 +1,6 @@
 import type { ScreenNode, GameState } from "../types";
 
-export const screens: ScreenNode[] = [
+const screens: ScreenNode[] = [
   // === START MENU ===
   { name: "start-menu", type: "start" },
 

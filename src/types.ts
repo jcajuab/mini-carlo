@@ -1,4 +1,4 @@
-export interface PhotoMeta {
+interface PhotoMeta {
   activityId: string;
   timestamp: number;
 }
