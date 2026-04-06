@@ -86,20 +86,6 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
           {error}
         </div>
       )}
-
-      <PixelButton
-        variant="secondary"
-        style={{ fontSize: "var(--font-size-sm)" }}
-        onClick={() => {
-          if (!screen.activityId) return;
-          dispatch({
-            type: "PHOTO_SKIPPED",
-            activityId: screen.activityId,
-          });
-        }}
-      >
-        Skip Photo
-      </PixelButton>
     </div>
   );
 }
