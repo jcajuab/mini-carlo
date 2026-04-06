@@ -80,7 +80,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
             maxWidth: "340px",
             backgroundColor: "var(--bg-secondary)",
             position: "relative",
-            padding: "20px 0",
+            padding: "10px 0",
             border: "3px solid var(--border-color)",
           }}
         >
@@ -143,10 +143,10 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
           <div
             style={{
               textAlign: "center",
-              fontSize: "var(--font-size-lg)",
+              fontSize: "var(--font-size-base)",
               color: "var(--text-accent)",
               fontFamily: "var(--font-pixel)",
-              padding: "8px 0 16px",
+              padding: "6px 0 10px",
               letterSpacing: "2px",
             }}
           >
@@ -157,17 +157,21 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "16px",
-              padding: "0 28px",
+              gap: "8px",
+              padding: "0 28px 12px",
             }}
           >
             {photoIds.map((id, i) => (
               <div key={id}>
-                <div
+                <a
+                  href={photoUrls[id]}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{
-                    border: "3px solid #333",
+                    display: "block",
+                    border: "2px solid var(--bg-card)",
                     backgroundColor: "var(--bg-primary)",
-                    padding: "4px",
+                    padding: "3px",
                   }}
                 >
                   <img
@@ -175,39 +179,26 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
                     alt={`Photo ${i + 1}`}
                     style={{
                       width: "100%",
-                      height: "200px",
+                      height: "120px",
                       objectFit: "cover",
                       display: "block",
                       imageRendering: "auto",
                     }}
                   />
-                </div>
+                </a>
                 <div
                   style={{
                     textAlign: "center",
-                    fontSize: "6px",
-                    color: "#8a6baa",
+                    fontSize: "5px",
+                    color: "var(--text-secondary)",
                     fontFamily: "var(--font-pixel)",
-                    marginTop: "4px",
+                    marginTop: "2px",
                   }}
                 >
                   {ACTIVITY_LABELS[id]}
                 </div>
               </div>
             ))}
-          </div>
-
-          <div
-            style={{
-              textAlign: "center",
-              fontSize: "6px",
-              color: "var(--text-accent)",
-              fontFamily: "var(--font-pixel)",
-              padding: "16px 0 4px",
-              opacity: 0.7,
-            }}
-          >
-            &mdash; Mini Carlo&trade; &mdash;
           </div>
         </div>
       )}

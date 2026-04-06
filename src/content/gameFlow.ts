@@ -303,7 +303,6 @@ export const screens: ScreenNode[] = [
   {
     name: "ending-entry",
     type: "dialogue",
-    chapter: "Finale",
     lines: [
       "Compiling memories\u2026",
       "Do not close your eyes.",
