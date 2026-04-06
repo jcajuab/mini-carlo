@@ -161,13 +161,6 @@ export function DialogueBox({ speaker, children }: DialogueBoxProps) {
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes cursor-blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-      `}</style>
     </div>
   );
 }

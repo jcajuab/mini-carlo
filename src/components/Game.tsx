@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import type { GameState, GameAction } from "../types";
 import { screens, screenMap } from "../content/gameFlow";
 import { StartMenu } from "./StartMenu";
@@ -38,6 +39,15 @@ function ChapterHeader({ title }: { title: string }) {
 
 export function Game({ state, dispatch }: GameProps) {
   const screen = screenMap.get(state.currentScreenName);
+
+  const chapterTitle = useMemo(() => {
+    if (!screen) return null;
+    const idx = screens.findIndex((s) => s.name === screen.name);
+    for (let i = idx; i >= 0; i--) {
+      if (screens[i].chapter) return screens[i].chapter;
+    }
+    return null;
+  }, [screen]);
 
   if (!screen) {
     return (
@@ -133,15 +143,7 @@ export function Game({ state, dispatch }: GameProps) {
         minHeight: 0,
       }}
     >
-      {(() => {
-        const idx = screens.findIndex((s) => s.name === screen.name);
-        for (let i = idx; i >= 0; i--) {
-          if (screens[i].chapter) {
-            return <ChapterHeader title={screens[i].chapter!} />;
-          }
-        }
-        return null;
-      })()}
+      {chapterTitle && <ChapterHeader title={chapterTitle} />}
 
       <div
         style={{

@@ -90,3 +90,24 @@ img {
   background: var(--border-color);
   border: 2px solid var(--bg-primary);
 }
+
+.pixel-button:active {
+  transform: scale(0.95);
+  filter: brightness(1.2);
+}
+
+@keyframes cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.3;
+  }
+}

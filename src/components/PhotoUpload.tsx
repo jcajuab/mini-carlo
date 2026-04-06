@@ -34,25 +34,6 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
     }
   };
 
-  if (!isLastLine) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "24px",
-          width: "100%",
-          alignItems: "center",
-        }}
-      >
-        <DialogueBox speaker="Mini Carlo">{currentLine}</DialogueBox>
-        <PixelButton onClick={() => dispatch({ type: "NEXT_LINE" })}>
-          ...
-        </PixelButton>
-      </div>
-    );
-  }
-
   return (
     <div
       style={{
@@ -65,26 +46,36 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
     >
       <DialogueBox speaker="Mini Carlo">{currentLine}</DialogueBox>
 
-      <input
-        ref={fileRef}
-        type="file"
-        accept="image/*"
-        capture="environment"
-        onChange={handleFile}
-        style={{ display: "none" }}
-      />
+      {isLastLine ? (
+        <>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onChange={handleFile}
+            style={{ display: "none" }}
+          />
 
-      <PixelButton
-        onClick={() => fileRef.current?.click()}
-        disabled={uploading}
-      >
-        {uploading ? "Saving..." : "Upload Photo"}
-      </PixelButton>
+          <PixelButton
+            onClick={() => fileRef.current?.click()}
+            disabled={uploading}
+          >
+            {uploading ? "Saving..." : "Upload Photo"}
+          </PixelButton>
 
-      {error && (
-        <div style={{ color: "var(--fail)", fontSize: "var(--font-size-sm)" }}>
-          {error}
-        </div>
+          {error && (
+            <div
+              style={{ color: "var(--fail)", fontSize: "var(--font-size-sm)" }}
+            >
+              {error}
+            </div>
+          )}
+        </>
+      ) : (
+        <PixelButton onClick={() => dispatch({ type: "NEXT_LINE" })}>
+          ...
+        </PixelButton>
       )}
     </div>
   );

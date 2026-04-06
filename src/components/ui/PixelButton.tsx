@@ -33,21 +33,7 @@ export function PixelButton({
         imageRendering: "pixelated",
         ...style,
       }}
-      onPointerDown={(e) => {
-        const el = e.currentTarget;
-        el.style.transform = "scale(0.95)";
-        el.style.filter = "brightness(1.2)";
-      }}
-      onPointerUp={(e) => {
-        const el = e.currentTarget;
-        el.style.transform = "scale(1)";
-        el.style.filter = "brightness(1)";
-      }}
-      onPointerLeave={(e) => {
-        const el = e.currentTarget;
-        el.style.transform = "scale(1)";
-        el.style.filter = "brightness(1)";
-      }}
+      className="pixel-button"
       {...props}
     >
       {children}

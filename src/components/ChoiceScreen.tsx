@@ -58,7 +58,7 @@ export function ChoiceScreen({
         </div>
       ) : (
         <PixelButton onClick={() => dispatch({ type: "NEXT_LINE" })}>
-          ...
+          {screen.continueLabel ?? "..."}
         </PixelButton>
       )}
     </div>

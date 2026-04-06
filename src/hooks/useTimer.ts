@@ -28,9 +28,5 @@ export function useTimer(initialSeconds: number) {
     setIsRunning(true);
   }, []);
 
-  const stop = useCallback(() => {
-    setIsRunning(false);
-  }, []);
-
-  return { secondsLeft, isRunning, start, stop };
+  return { secondsLeft, isRunning, start };
 }

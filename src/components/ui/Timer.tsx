@@ -21,11 +21,6 @@ export function Timer({ secondsLeft }: TimerProps) {
       }}
     >
       {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
-      <style>{`
-        @keyframes blink {
-          50% { opacity: 0.3; }
-        }
-      `}</style>
     </div>
   );
 }
