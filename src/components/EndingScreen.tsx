@@ -7,7 +7,7 @@ interface EndingScreenProps {
   dispatch: React.Dispatch<GameAction>;
 }
 
-const ACTIVITY_IDS = ["coffee", "activity2", "dinner"];
+const ACTIVITY_IDS = ["coffee", "intermission", "dinner"];
 
 export function EndingScreen({ dispatch }: EndingScreenProps) {
   const [photoUrls, setPhotoUrls] = useState<Record<string, string>>({});

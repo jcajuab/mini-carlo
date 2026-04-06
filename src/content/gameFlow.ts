@@ -192,18 +192,18 @@ export const screens: ScreenNode[] = [
     type: "image-reveal",
     lines: ["Completely fake.", "Emotionally real."],
     asset: import.meta.env.BASE_URL + "assets/smiski-coupon.png",
-    next: "activity2-entry",
+    next: "intermission-entry",
   },
   {
     name: "quiz-result-fail",
     type: "dialogue",
     lines: ["\u2026Oh.", "Well.", "Memories are temporary anyway."],
-    next: "activity2-entry",
+    next: "intermission-entry",
   },
 
   // === ACTIVITY 2 — INTERMISSION ===
   {
-    name: "activity2-entry",
+    name: "intermission-entry",
     type: "dialogue",
     chapter: "Act II \u2014 Intermission",
     lines: [
@@ -213,14 +213,14 @@ export const screens: ScreenNode[] = [
     ],
   },
   {
-    name: "activity2-choice",
+    name: "intermission-choice",
     type: "choice",
     choiceId: "activity",
     lines: ["Pick your next activity."],
     options: ["Timezone", "Movie"],
   },
   {
-    name: "activity2-response",
+    name: "intermission-response",
     type: "dialogue",
     lines: [
       "Excellent.",
@@ -230,7 +230,7 @@ export const screens: ScreenNode[] = [
     ],
   },
   {
-    name: "activity2-dinner-hint",
+    name: "intermission-dinner-hint",
     type: "dialogue",
     lines: [
       "Relax though.",
@@ -240,18 +240,18 @@ export const screens: ScreenNode[] = [
     ],
   },
   {
-    name: "activity2-realworld",
+    name: "intermission-realworld",
     type: "dialogue",
     lines: ["Go enjoy it.", "Compete. React. Exist.", "I'll be waiting."],
   },
   {
-    name: "activity2-photo",
+    name: "intermission-photo",
     type: "upload",
     lines: ["Documentation required again.", "Yes, I am building a case file."],
-    activityId: "activity2",
+    activityId: "intermission",
   },
   {
-    name: "activity2-photo-reaction",
+    name: "intermission-photo-reaction",
     type: "dialogue",
     lines: ["Noted.", "The case file grows stronger."],
   },
