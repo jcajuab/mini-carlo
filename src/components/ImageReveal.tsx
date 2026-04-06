@@ -53,7 +53,7 @@ export function ImageReveal({ screen, lineIndex, dispatch }: ImageRevealProps) {
           dispatch({ type: isLastLine ? "NEXT_SCREEN" : "NEXT_LINE" })
         }
       >
-        {isLastLine ? "Continue" : "..."}
+        {isLastLine ? (screen.continueLabel ?? "...") : "..."}
       </PixelButton>
     </div>
   );

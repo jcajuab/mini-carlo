@@ -24,7 +24,7 @@ export const screens: ScreenNode[] = [
     lines: [
       "My real-life counterpart. Tall. Handsome. Questionable decision-making.",
     ],
-    continueLabel: "..?",
+    continueLabel: "???",
   },
   {
     name: "intro-choice",
@@ -108,7 +108,7 @@ export const screens: ScreenNode[] = [
     name: "payment-gag-intro",
     type: "dialogue",
     lines: ["Oh\u2014before you go.", "I have documentation."],
-    continueLabel: "..?",
+    continueLabel: "???",
   },
   {
     name: "payment-proof",
@@ -118,6 +118,7 @@ export const screens: ScreenNode[] = [
       "This is now legally binding in this universe.",
     ],
     asset: import.meta.env.BASE_URL + "assets/fake-payment-proof.png",
+    continueLabel: "!!!",
   },
   {
     name: "coffee-realworld",
