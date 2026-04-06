@@ -54,15 +54,15 @@ body {
 
 /* Retro border frame around the entire game */
 #root {
-  min-height: 100dvh;
+  min-height: calc(100dvh - 32px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
   max-width: 480px;
-  width: 100%;
-  margin: 0 auto;
+  width: calc(100% - 32px);
+  margin: 16px auto;
   background-color: var(--bg-primary);
   border: 4px solid var(--border-color);
   box-shadow:
@@ -72,26 +72,6 @@ body {
     0 0 0 6px var(--border-color),
     0 0 20px rgba(233, 69, 96, 0.15);
   position: relative;
-}
-
-/* Corner decorations */
-#root::before,
-#root::after {
-  content: "";
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  background: var(--border-color);
-  z-index: 10;
-}
-
-#root::before {
-  top: 6px;
-  left: 6px;
-  box-shadow:
-    calc(100vw - 22px) 0 0 0 var(--border-color),
-    0 calc(100dvh - 22px) 0 0 var(--border-color),
-    calc(100vw - 22px) calc(100dvh - 22px) 0 0 var(--border-color);
 }
 
 img {

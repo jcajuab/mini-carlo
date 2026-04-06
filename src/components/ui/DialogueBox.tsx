@@ -113,13 +113,33 @@ export function DialogueBox({ speaker, children }: DialogueBoxProps) {
         <div
           style={{
             flexShrink: 0,
-            border: "2px solid var(--border-color)",
-            backgroundColor: "var(--bg-card)",
-            padding: "3px",
-            lineHeight: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "3px",
           }}
         >
-          {AVATAR_SVG}
+          <div
+            style={{
+              border: "2px solid var(--border-color)",
+              backgroundColor: "var(--bg-card)",
+              padding: "3px",
+              lineHeight: 0,
+            }}
+          >
+            {AVATAR_SVG}
+          </div>
+          <div
+            style={{
+              fontSize: "5px",
+              color: "var(--text-accent)",
+              fontFamily: "var(--font-pixel)",
+              textAlign: "center",
+              lineHeight: "1.2",
+            }}
+          >
+            {speaker}
+          </div>
         </div>
 
         {/* Text content */}
@@ -155,20 +175,6 @@ export function DialogueBox({ speaker, children }: DialogueBoxProps) {
             />
           </div>
         </div>
-      </div>
-
-      {/* Speaker name below the box */}
-      <div
-        style={{
-          fontSize: "6px",
-          color: "var(--text-accent)",
-          fontFamily: "var(--font-pixel)",
-          marginTop: "4px",
-          marginLeft: "4px",
-          lineHeight: "1.4",
-        }}
-      >
-        {speaker}
       </div>
 
       <style>{`
