@@ -17,6 +17,16 @@ export function DialogueScreen({
   const currentLine = lines[lineIndex] ?? "";
   const isLastLine = lineIndex >= lines.length - 1;
   const label = screen.continueLabel ?? "...";
+  const isFinalScreen = label === "BYE";
+
+  const handleContinue = () => {
+    if (isLastLine && isFinalScreen) {
+      localStorage.removeItem("mini-carlo-state");
+      dispatch({ type: "RESET_GAME" });
+    } else {
+      dispatch({ type: isLastLine ? "NEXT_SCREEN" : "NEXT_LINE" });
+    }
+  };
 
   return (
     <div
@@ -29,11 +39,7 @@ export function DialogueScreen({
       }}
     >
       <DialogueBox speaker="Mini Carlo">{currentLine}</DialogueBox>
-      <PixelButton
-        onClick={() =>
-          dispatch({ type: isLastLine ? "NEXT_SCREEN" : "NEXT_LINE" })
-        }
-      >
+      <PixelButton onClick={handleContinue}>
         {isLastLine ? label : "..."}
       </PixelButton>
     </div>

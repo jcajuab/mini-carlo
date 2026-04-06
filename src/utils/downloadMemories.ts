@@ -78,11 +78,6 @@ export async function downloadMemories(
     ctx.fillText(ACTIVITY_LABELS[id], w / 2, y + photoH + 20);
   }
 
-  ctx.fillStyle = "#ffafcc";
-  ctx.font = "8px 'Press Start 2P', monospace";
-  ctx.textAlign = "center";
-  ctx.fillText("\u2014 Mini Carlo\u2122 \u2014", w / 2, totalH - 12);
-
   canvas.toBlob((blob) => {
     if (!blob) return;
     const url = URL.createObjectURL(blob);

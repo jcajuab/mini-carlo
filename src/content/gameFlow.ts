@@ -336,6 +336,7 @@ export const screens: ScreenNode[] = [
       "Not bad at all.",
       "I'll\u2026 log this as a successful run.",
     ],
+    continueLabel: "BYE",
   },
 ];
 

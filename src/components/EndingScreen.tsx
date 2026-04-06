@@ -75,6 +75,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
     >
       {hasPhotos && (
         <div
+          onClick={handleDownload}
           style={{
             width: "100%",
             maxWidth: "340px",
@@ -82,6 +83,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
             position: "relative",
             padding: "10px 0",
             border: "3px solid var(--border-color)",
+            cursor: "pointer",
           }}
         >
           <div
@@ -163,12 +165,8 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
           >
             {photoIds.map((id, i) => (
               <div key={id}>
-                <a
-                  href={photoUrls[id]}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <div
                   style={{
-                    display: "block",
                     border: "2px solid var(--bg-card)",
                     backgroundColor: "var(--bg-primary)",
                     padding: "3px",
@@ -185,7 +183,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
                       imageRendering: "auto",
                     }}
                   />
-                </a>
+                </div>
                 <div
                   style={{
                     textAlign: "center",
@@ -201,10 +199,6 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
             ))}
           </div>
         </div>
-      )}
-
-      {hasPhotos && (
-        <PixelButton onClick={handleDownload}>Save Memories</PixelButton>
       )}
 
       <PixelButton
