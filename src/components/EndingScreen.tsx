@@ -10,9 +10,179 @@ interface EndingScreenProps {
 
 const ACTIVITY_IDS = Object.keys(ACTIVITY_LABELS);
 
+function SprocketColumn({ side }: { side: "left" | "right" }) {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        [side]: 0,
+        top: 0,
+        bottom: 0,
+        width: "22px",
+        backgroundColor: "#111118",
+        display: "flex",
+        flexDirection: "column",
+        gap: "8px",
+        padding: "6px 4px",
+        overflow: "hidden",
+      }}
+    >
+      {Array.from({ length: 40 }).map((_, i) => (
+        <div
+          key={i}
+          style={{
+            width: "14px",
+            height: "10px",
+            backgroundColor: "var(--bg-primary)",
+            flexShrink: 0,
+            borderRadius: "1px",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function FilmStrip({
+  photoIds,
+  photoUrls,
+  onClick,
+}: {
+  photoIds: string[];
+  photoUrls: Record<string, string>;
+  onClick: () => void;
+}) {
+  return (
+    <div
+      onClick={onClick}
+      style={{
+        width: "100%",
+        maxWidth: "340px",
+        backgroundColor: "var(--bg-secondary)",
+        position: "relative",
+        padding: "10px 0",
+        border: "3px solid var(--border-color)",
+        cursor: "pointer",
+      }}
+    >
+      <SprocketColumn side="left" />
+      <SprocketColumn side="right" />
+
+      <div
+        style={{
+          textAlign: "center",
+          fontSize: "var(--font-size-base)",
+          color: "var(--text-accent)",
+          fontFamily: "var(--font-pixel)",
+          padding: "6px 0 10px",
+          letterSpacing: "2px",
+        }}
+      >
+        memories
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
+          padding: "0 30px 12px",
+        }}
+      >
+        {photoIds.map((id, i) => (
+          <div key={id}>
+            <div
+              style={{
+                border: "2px solid var(--bg-card)",
+                backgroundColor: "var(--bg-primary)",
+                padding: "3px",
+              }}
+            >
+              <img
+                src={photoUrls[id]}
+                alt={`Photo ${i + 1}`}
+                style={{
+                  width: "100%",
+                  height: "120px",
+                  objectFit: "cover",
+                  display: "block",
+                  imageRendering: "auto",
+                }}
+              />
+            </div>
+            <div
+              style={{
+                textAlign: "center",
+                fontSize: "5px",
+                color: "var(--text-secondary)",
+                fontFamily: "var(--font-pixel)",
+                marginTop: "2px",
+              }}
+            >
+              {ACTIVITY_LABELS[id]}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Modal({
+  photoIds,
+  photoUrls,
+  onSave,
+  onClose,
+}: {
+  photoIds: string[];
+  photoUrls: Record<string, string>;
+  onSave: () => void;
+  onClose: () => void;
+}) {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.85)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 100,
+        padding: "16px",
+      }}
+    >
+      <div
+        style={{
+          maxHeight: "80svh",
+          overflowY: "auto",
+          width: "100%",
+          maxWidth: "400px",
+        }}
+      >
+        <FilmStrip photoIds={photoIds} photoUrls={photoUrls} onClick={onSave} />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          gap: "12px",
+          marginTop: "16px",
+        }}
+      >
+        <PixelButton onClick={onSave}>Save</PixelButton>
+        <PixelButton variant="secondary" onClick={onClose}>
+          Close
+        </PixelButton>
+      </div>
+    </div>
+  );
+}
+
 export function EndingScreen({ dispatch }: EndingScreenProps) {
   const [photoUrls, setPhotoUrls] = useState<Record<string, string>>({});
   const [loaded, setLoaded] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -63,150 +233,45 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
-        width: "100%",
-        alignItems: "center",
-        paddingBottom: "32px",
-      }}
-    >
-      {hasPhotos && (
-        <div
-          onClick={handleDownload}
-          style={{
-            width: "100%",
-            maxWidth: "340px",
-            backgroundColor: "var(--bg-secondary)",
-            position: "relative",
-            padding: "10px 0",
-            border: "3px solid var(--border-color)",
-            cursor: "pointer",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: "20px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-              padding: "6px 3px",
-              overflow: "hidden",
-            }}
-          >
-            {Array.from({ length: 30 }).map((_, i) => (
-              <div
-                key={`l${i}`}
-                style={{
-                  width: "14px",
-                  height: "10px",
-                  backgroundColor: "var(--bg-primary)",
-                  flexShrink: 0,
-                  borderRadius: "1px",
-                }}
-              />
-            ))}
-          </div>
-
-          <div
-            style={{
-              position: "absolute",
-              right: 0,
-              top: 0,
-              bottom: 0,
-              width: "20px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-              padding: "6px 3px",
-              overflow: "hidden",
-            }}
-          >
-            {Array.from({ length: 30 }).map((_, i) => (
-              <div
-                key={`r${i}`}
-                style={{
-                  width: "14px",
-                  height: "10px",
-                  backgroundColor: "var(--bg-primary)",
-                  flexShrink: 0,
-                  borderRadius: "1px",
-                }}
-              />
-            ))}
-          </div>
-
-          <div
-            style={{
-              textAlign: "center",
-              fontSize: "var(--font-size-base)",
-              color: "var(--text-accent)",
-              fontFamily: "var(--font-pixel)",
-              padding: "6px 0 10px",
-              letterSpacing: "2px",
-            }}
-          >
-            memories
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
-              padding: "0 28px 12px",
-            }}
-          >
-            {photoIds.map((id, i) => (
-              <div key={id}>
-                <div
-                  style={{
-                    border: "2px solid var(--bg-card)",
-                    backgroundColor: "var(--bg-primary)",
-                    padding: "3px",
-                  }}
-                >
-                  <img
-                    src={photoUrls[id]}
-                    alt={`Photo ${i + 1}`}
-                    style={{
-                      width: "100%",
-                      height: "120px",
-                      objectFit: "cover",
-                      display: "block",
-                      imageRendering: "auto",
-                    }}
-                  />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "5px",
-                    color: "var(--text-secondary)",
-                    fontFamily: "var(--font-pixel)",
-                    marginTop: "2px",
-                  }}
-                >
-                  {ACTIVITY_LABELS[id]}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+    <>
+      {modalOpen && (
+        <Modal
+          photoIds={photoIds}
+          photoUrls={photoUrls}
+          onSave={handleDownload}
+          onClose={() => setModalOpen(false)}
+        />
       )}
-
-      <PixelButton
-        variant="secondary"
-        onClick={() => dispatch({ type: "NEXT_SCREEN" })}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "16px",
+          width: "100%",
+          alignItems: "center",
+          paddingBottom: "16px",
+        }}
       >
-        ...
-      </PixelButton>
-    </div>
+        {hasPhotos && (
+          <FilmStrip
+            photoIds={photoIds}
+            photoUrls={photoUrls}
+            onClick={() => setModalOpen(true)}
+          />
+        )}
+
+        <div style={{ display: "flex", gap: "12px" }}>
+          {hasPhotos && (
+            <PixelButton onClick={handleDownload}>Save</PixelButton>
+          )}
+          <PixelButton
+            variant="secondary"
+            onClick={() => dispatch({ type: "NEXT_SCREEN" })}
+          >
+            Continue
+          </PixelButton>
+        </div>
+      </div>
+    </>
   );
 }
