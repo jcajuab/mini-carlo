@@ -187,7 +187,16 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
       {hasPhotos && <FilmStrip photoIds={photoIds} photoUrls={photoUrls} />}
 
       <div style={{ display: "flex", gap: "12px" }}>
-        {hasPhotos && <PixelButton onClick={handleDownload}>Save</PixelButton>}
+        {hasPhotos && (
+          <PixelButton
+            onClick={() => {
+              handleDownload();
+              dispatch({ type: "NEXT_SCREEN" });
+            }}
+          >
+            Save
+          </PixelButton>
+        )}
         <PixelButton
           variant="secondary"
           onClick={() => dispatch({ type: "NEXT_SCREEN" })}
