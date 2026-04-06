@@ -290,23 +290,6 @@ export const screens: ScreenNode[] = [
     lines: ["One last photo.", "For the archives."],
     activityId: "dinner",
   },
-  {
-    name: "final-question",
-    type: "choice",
-    choiceId: "enjoy",
-    lines: ["So.", "Did you enjoy the \u201Cdate\u201D?"],
-    options: ["Yes", "No"],
-    next: (state) =>
-      state.choices["enjoy"] === "Yes" ? "ending-entry" : "ending-no-quip",
-  },
-  {
-    name: "ending-no-quip",
-    type: "dialogue",
-    lines: ["That's statistically improbable. Proceeding anyway."],
-    continueLabel: "...",
-    next: "ending-entry",
-  },
-
   // === ENDING — MEMORY COMPILATION ===
   {
     name: "ending-entry",
@@ -321,12 +304,32 @@ export const screens: ScreenNode[] = [
   {
     name: "ending",
     type: "ending",
+  },
+  {
+    name: "final-question",
+    type: "choice",
+    choiceId: "enjoy",
+    lines: ["So.", "Did you enjoy the \u201Cdate\u201D?"],
+    options: ["Yes", "No"],
+    next: (state) =>
+      state.choices["enjoy"] === "Yes" ? "final-closing" : "ending-no-quip",
+  },
+  {
+    name: "ending-no-quip",
+    type: "dialogue",
+    lines: ["That's statistically improbable. Proceeding anyway."],
+    continueLabel: "...",
+    next: "final-closing",
+  },
+  {
+    name: "final-closing",
+    type: "dialogue",
     lines: [
-      "Here's what happened.",
       "Not bad.",
       "Not bad at all.",
       "I'll\u2026 log this as a successful run.",
     ],
+    continueLabel: "...",
   },
 ];
 
