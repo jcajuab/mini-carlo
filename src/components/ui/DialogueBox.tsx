@@ -31,7 +31,7 @@ const AVATAR_SVG = (
       width="16"
       height="8"
       fill="none"
-      stroke="#a8a8a8"
+      stroke="#cdb4db"
       strokeWidth="2"
     />
     <rect
@@ -40,16 +40,16 @@ const AVATAR_SVG = (
       width="16"
       height="8"
       fill="none"
-      stroke="#a8a8a8"
+      stroke="#cdb4db"
       strokeWidth="2"
     />
     {/* Bridge */}
-    <rect x="28" y="19" width="4" height="2" fill="#a8a8a8" />
+    <rect x="28" y="19" width="4" height="2" fill="#cdb4db" />
     {/* Left eye */}
-    <rect x="18" y="19" width="6" height="4" fill="#1a1a2e" />
+    <rect x="18" y="19" width="6" height="4" fill="#2a1d3e" />
     <rect x="20" y="20" width="2" height="2" fill="#fff" />
     {/* Right eye */}
-    <rect x="36" y="19" width="6" height="4" fill="#1a1a2e" />
+    <rect x="36" y="19" width="6" height="4" fill="#2a1d3e" />
     <rect x="38" y="20" width="2" height="2" fill="#fff" />
 
     {/* Nose / cheeks */}
@@ -58,16 +58,16 @@ const AVATAR_SVG = (
 
     {/* Mouth row */}
     <rect x="6" y="30" width="48" height="6" fill="#c68642" />
-    <rect x="24" y="32" width="12" height="3" fill="#1a1a2e" />
-    <rect x="26" y="32" width="8" height="2" fill="#e94560" opacity="0.5" />
+    <rect x="24" y="32" width="12" height="3" fill="#2a1d3e" />
+    <rect x="26" y="32" width="8" height="2" fill="#ffafcc" opacity="0.5" />
 
     {/* Chin */}
     <rect x="12" y="36" width="36" height="6" fill="#c68642" />
 
     {/* Neck / Shirt */}
     <rect x="18" y="42" width="24" height="6" fill="#c68642" />
-    <rect x="6" y="48" width="48" height="6" fill="#0f3460" />
-    <rect x="0" y="54" width="60" height="6" fill="#0f3460" />
+    <rect x="6" y="48" width="48" height="6" fill="#3d2d5c" />
+    <rect x="0" y="54" width="60" height="6" fill="#3d2d5c" />
   </svg>
 );
 

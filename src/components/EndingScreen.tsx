@@ -48,17 +48,17 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
     if (!ctx) return;
 
     // Background
-    ctx.fillStyle = "#1a1a2e";
+    ctx.fillStyle = "#2a1d3e";
     ctx.fillRect(0, 0, w, totalH);
 
     // Film strip background
     const stripX = sprocketW;
     const stripW = w - sprocketW * 2;
-    ctx.fillStyle = "#111";
+    ctx.fillStyle = "#1e1533";
     ctx.fillRect(stripX, 0, stripW, totalH);
 
     // Sprocket holes
-    ctx.fillStyle = "#1a1a2e";
+    ctx.fillStyle = "#2a1d3e";
     for (let y = 10; y < totalH; y += 30) {
       // Left sprockets
       ctx.fillRect(4, y, 14, 16);
@@ -67,12 +67,12 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
     }
 
     // Film strip borders
-    ctx.fillStyle = "#333";
+    ctx.fillStyle = "#4a2d5c";
     ctx.fillRect(stripX, 0, 2, totalH);
     ctx.fillRect(stripX + stripW - 2, 0, 2, totalH);
 
     // Title
-    ctx.fillStyle = "#e94560";
+    ctx.fillStyle = "#ffafcc";
     ctx.font = "bold 16px 'Press Start 2P', monospace";
     ctx.textAlign = "center";
     ctx.fillText("memories", w / 2, 30);
@@ -87,7 +87,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
       const photoH = frameH - 40;
 
       // Photo frame
-      ctx.fillStyle = "#222";
+      ctx.fillStyle = "#2a1d3e";
       ctx.fillRect(photoX - 4, y - 4, photoW + 8, photoH + 8);
 
       // Load and draw image
@@ -108,12 +108,12 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
         const sy = (img.height - sh) / 2;
         ctx.drawImage(img, sx, sy, sw, sh, photoX, y, photoW, photoH);
       } catch {
-        ctx.fillStyle = "#333";
+        ctx.fillStyle = "#4a2d5c";
         ctx.fillRect(photoX, y, photoW, photoH);
       }
 
       // Label
-      ctx.fillStyle = "#a8a8a8";
+      ctx.fillStyle = "#cdb4db";
       ctx.font = "8px 'Press Start 2P', monospace";
       ctx.textAlign = "center";
       const labels = ["Coffee", "Intermission", "Dinner"];
@@ -121,7 +121,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
     }
 
     // Footer
-    ctx.fillStyle = "#e94560";
+    ctx.fillStyle = "#ffafcc";
     ctx.font = "8px 'Press Start 2P', monospace";
     ctx.textAlign = "center";
     ctx.fillText("\u2014 Mini Carlo\u2122 \u2014", w / 2, totalH - 12);
@@ -174,7 +174,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
           style={{
             width: "100%",
             maxWidth: "340px",
-            backgroundColor: "#111",
+            backgroundColor: "#1e1533",
             position: "relative",
             padding: "20px 0",
             border: "3px solid var(--border-color)",
@@ -266,7 +266,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
                 <div
                   style={{
                     border: "3px solid #333",
-                    backgroundColor: "#222",
+                    backgroundColor: "#2a1d3e",
                     padding: "4px",
                   }}
                 >
@@ -286,7 +286,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
                   style={{
                     textAlign: "center",
                     fontSize: "6px",
-                    color: "#666",
+                    color: "#8a6baa",
                     fontFamily: "var(--font-pixel)",
                     marginTop: "4px",
                   }}
