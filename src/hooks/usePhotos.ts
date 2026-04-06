@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { savePhoto, getPhoto } from "../db/photoDb";
+import { savePhoto } from "../db/photoDb";
 import { processPhoto } from "../utils/photoUtils";
 
 export function usePhotos() {
@@ -8,9 +8,5 @@ export function usePhotos() {
     await savePhoto(activityId, processed);
   }, []);
 
-  const load = useCallback(async (activityId: string) => {
-    return getPhoto(activityId);
-  }, []);
-
-  return { save, load };
+  return { save };
 }

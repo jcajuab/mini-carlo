@@ -37,24 +37,3 @@ export async function getPhoto(activityId: string): Promise<Blob | null> {
     request.onerror = () => reject(request.error);
   });
 }
-
-export async function getAllPhotos(): Promise<Record<string, Blob>> {
-  const db = await openDb();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE_NAME, "readonly");
-    const store = tx.objectStore(STORE_NAME);
-    const result: Record<string, Blob> = {};
-
-    const cursorReq = store.openCursor();
-    cursorReq.onsuccess = () => {
-      const cursor = cursorReq.result;
-      if (cursor) {
-        result[cursor.key as string] = cursor.value;
-        cursor.continue();
-      } else {
-        resolve(result);
-      }
-    };
-    cursorReq.onerror = () => reject(cursorReq.error);
-  });
-}
