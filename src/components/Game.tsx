@@ -14,6 +14,28 @@ interface GameProps {
   dispatch: React.Dispatch<GameAction>;
 }
 
+function ChapterHeader({ title }: { title: string }) {
+  return (
+    <div
+      style={{
+        width: "100%",
+        textAlign: "center",
+        padding: "12px 0",
+        marginBottom: "8px",
+        borderBottom: "2px solid var(--border-color)",
+        fontSize: "var(--font-size-sm)",
+        color: "var(--text-accent)",
+        fontFamily: "var(--font-pixel)",
+        letterSpacing: "2px",
+        textTransform: "uppercase",
+        opacity: 0.8,
+      }}
+    >
+      {title}
+    </div>
+  );
+}
+
 export function Game({ state, dispatch }: GameProps) {
   const screen = screenMap.get(state.currentScreenName);
 
@@ -25,62 +47,87 @@ export function Game({ state, dispatch }: GameProps) {
     );
   }
 
+  let content: React.ReactNode;
+
   switch (screen.type) {
     case "start":
       return <StartMenu dispatch={dispatch} />;
 
     case "dialogue":
-      return (
+      content = (
         <DialogueScreen
           screen={screen}
           lineIndex={state.dialogueLineIndex}
           dispatch={dispatch}
         />
       );
+      break;
 
     case "choice":
-      return (
+      content = (
         <ChoiceScreen
           screen={screen}
           lineIndex={state.dialogueLineIndex}
           dispatch={dispatch}
         />
       );
+      break;
 
     case "map":
-      return (
+      content = (
         <MapScreen
           screen={screen}
           lineIndex={state.dialogueLineIndex}
           dispatch={dispatch}
         />
       );
+      break;
 
     case "image-reveal":
-      return (
+      content = (
         <ImageReveal
           screen={screen}
           lineIndex={state.dialogueLineIndex}
           dispatch={dispatch}
         />
       );
+      break;
 
     case "upload":
-      return (
+      content = (
         <PhotoUpload
           screen={screen}
           lineIndex={state.dialogueLineIndex}
           dispatch={dispatch}
         />
       );
+      break;
 
     case "quiz":
-      return <QuizScreen dispatch={dispatch} />;
+      content = <QuizScreen dispatch={dispatch} />;
+      break;
 
     case "ending":
-      return <EndingScreen state={state} dispatch={dispatch} />;
+      content = <EndingScreen state={state} dispatch={dispatch} />;
+      break;
 
     default:
       return null;
   }
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%",
+        flex: 1,
+        justifyContent: "center",
+      }}
+    >
+      {screen.chapter && <ChapterHeader title={screen.chapter} />}
+      {content}
+    </div>
+  );
 }

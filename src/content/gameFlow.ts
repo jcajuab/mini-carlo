@@ -96,6 +96,7 @@ export const screens: ScreenNode[] = [
   {
     name: "coffee-entry",
     type: "dialogue",
+    chapter: "Act I \u2014 Coffee",
     lines: [
       "First stop: Coffee.",
       "Also known as: the interrogation stage.",
@@ -158,6 +159,7 @@ export const screens: ScreenNode[] = [
   {
     name: "quiz-entry",
     type: "dialogue",
+    chapter: "Act I.V \u2014 Pop Quiz",
     lines: [
       "Oh good. You survived small talk.",
       "Time to verify that information was actually retained.",
@@ -212,6 +214,7 @@ export const screens: ScreenNode[] = [
   {
     name: "activity2-entry",
     type: "dialogue",
+    chapter: "Act II \u2014 Intermission",
     lines: [
       "Phase two.",
       "Less talking. More doing.",
@@ -269,6 +272,7 @@ export const screens: ScreenNode[] = [
   {
     name: "dinner-entry",
     type: "dialogue",
+    chapter: "Act III \u2014 Dinner",
     lines: [
       "Final stage.",
       "Dinner.",
@@ -302,6 +306,7 @@ export const screens: ScreenNode[] = [
   {
     name: "ending-entry",
     type: "dialogue",
+    chapter: "Finale",
     lines: [
       "Compiling memories\u2026",
       "Do not close your eyes.",
