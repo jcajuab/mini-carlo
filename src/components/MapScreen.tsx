@@ -33,7 +33,6 @@ function AdventureMap() {
           height="auto"
           style={{ display: "block" }}
         >
-          {/* Background grid */}
           <defs>
             <pattern
               id="grid"
@@ -47,7 +46,6 @@ function AdventureMap() {
           </defs>
           <rect width="380" height="280" fill="url(#grid)" />
 
-          {/* Winding path */}
           <path
             d="M 60 60 C 100 60, 120 100, 140 120 C 160 140, 200 150, 220 140 C 240 130, 260 120, 280 140 C 300 160, 310 190, 310 220"
             fill="none"
@@ -64,7 +62,6 @@ function AdventureMap() {
             strokeLinecap="round"
           />
 
-          {/* Decorative flowers/stars */}
           <g transform="translate(100, 80)">
             <rect x="3" y="8" width="4" height="6" fill="#8a6baa" />
             <rect x="0" y="0" width="10" height="4" fill="#cdb4db" />
@@ -83,7 +80,6 @@ function AdventureMap() {
             <rect x="3" y="-6" width="4" height="2" fill="#e8d5f0" />
           </g>
 
-          {/* Sparkles */}
           <rect
             x="150"
             y="40"
@@ -125,7 +121,6 @@ function AdventureMap() {
             opacity="0.4"
           />
 
-          {/* === LOCATION 1: COFFEE === */}
           <g transform="translate(38, 30)">
             <rect x="0" y="24" width="40" height="8" fill="#4a2d5c" rx="2" />
             <rect x="10" y="6" width="20" height="16" fill="#ffafcc" />
@@ -169,7 +164,6 @@ function AdventureMap() {
             </text>
           </g>
 
-          {/* === LOCATION 2: INTERMISSION === */}
           <g transform="translate(195, 110)">
             <rect x="0" y="24" width="50" height="8" fill="#4a2d5c" rx="2" />
             <rect x="15" y="4" width="20" height="18" fill="#bde0fe" />
@@ -191,7 +185,6 @@ function AdventureMap() {
             </text>
           </g>
 
-          {/* === LOCATION 3: DINNER === */}
           <g transform="translate(285, 195)">
             <rect x="0" y="24" width="44" height="8" fill="#4a2d5c" rx="2" />
             <rect x="6" y="10" width="30" height="14" fill="#cdb4db" rx="2" />
@@ -222,7 +215,6 @@ function AdventureMap() {
             </text>
           </g>
 
-          {/* Step indicators */}
           <circle cx="60" cy="60" r="6" fill="#ffafcc" />
           <text
             x="60"
@@ -259,7 +251,6 @@ function AdventureMap() {
             3
           </text>
 
-          {/* Map title */}
           <text
             x="190"
             y="270"

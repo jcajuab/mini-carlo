@@ -20,19 +20,17 @@ export interface GameState {
   gameFinished: boolean;
 }
 
-export type ScreenType =
-  | "start"
-  | "dialogue"
-  | "choice"
-  | "upload"
-  | "quiz"
-  | "map"
-  | "image-reveal"
-  | "ending";
-
 export interface ScreenNode {
   name: string;
-  type: ScreenType;
+  type:
+    | "start"
+    | "dialogue"
+    | "choice"
+    | "upload"
+    | "quiz"
+    | "map"
+    | "image-reveal"
+    | "ending";
   lines?: string[];
   choiceId?: string;
   options?: string[];
@@ -50,5 +48,4 @@ export type GameAction =
   | { type: "MAKE_CHOICE"; choiceId: string; option: string }
   | { type: "SUBMIT_QUIZ"; answers: string[] }
   | { type: "PHOTO_SAVED"; activityId: string }
-  | { type: "PHOTO_SKIPPED"; activityId: string }
   | { type: "RESET_GAME" };

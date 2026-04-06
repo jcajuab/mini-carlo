@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import type { GameAction } from "../types";
 import { getPhoto } from "../db/photoDb";
 import { PixelButton } from "./ui/PixelButton";
@@ -12,16 +12,18 @@ const ACTIVITY_IDS = ["coffee", "activity2", "dinner"];
 export function EndingScreen({ dispatch }: EndingScreenProps) {
   const [photoUrls, setPhotoUrls] = useState<Record<string, string>>({});
   const [loaded, setLoaded] = useState(false);
-  const stripRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let cancelled = false;
+    const createdUrls: string[] = [];
     async function load() {
       const urls: Record<string, string> = {};
       for (const id of ACTIVITY_IDS) {
         const blob = await getPhoto(id);
         if (blob && !cancelled) {
-          urls[id] = URL.createObjectURL(blob);
+          const url = URL.createObjectURL(blob);
+          createdUrls.push(url);
+          urls[id] = url;
         }
       }
       if (!cancelled) {
@@ -32,6 +34,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
     load();
     return () => {
       cancelled = true;
+      createdUrls.forEach((url) => URL.revokeObjectURL(url));
     };
   }, []);
 
@@ -47,37 +50,29 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Background
     ctx.fillStyle = "#2a1d3e";
     ctx.fillRect(0, 0, w, totalH);
 
-    // Film strip background
     const stripX = sprocketW;
     const stripW = w - sprocketW * 2;
     ctx.fillStyle = "#1e1533";
     ctx.fillRect(stripX, 0, stripW, totalH);
 
-    // Sprocket holes
     ctx.fillStyle = "#2a1d3e";
     for (let y = 10; y < totalH; y += 30) {
-      // Left sprockets
       ctx.fillRect(4, y, 14, 16);
-      // Right sprockets
       ctx.fillRect(w - 18, y, 14, 16);
     }
 
-    // Film strip borders
     ctx.fillStyle = "#4a2d5c";
     ctx.fillRect(stripX, 0, 2, totalH);
     ctx.fillRect(stripX + stripW - 2, 0, 2, totalH);
 
-    // Title
     ctx.fillStyle = "#ffafcc";
     ctx.font = "bold 16px 'Press Start 2P', monospace";
     ctx.textAlign = "center";
     ctx.fillText("memories", w / 2, 30);
 
-    // Photos
     for (let i = 0; i < photoIds.length; i++) {
       const id = photoIds[i];
       const url = photoUrls[id];
@@ -86,11 +81,9 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
       const photoW = stripW - 32;
       const photoH = frameH - 40;
 
-      // Photo frame
       ctx.fillStyle = "#2a1d3e";
       ctx.fillRect(photoX - 4, y - 4, photoW + 8, photoH + 8);
 
-      // Load and draw image
       try {
         const img = new Image();
         img.crossOrigin = "anonymous";
@@ -100,7 +93,6 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
           img.src = url;
         });
 
-        // Cover fit
         const scale = Math.max(photoW / img.width, photoH / img.height);
         const sw = photoW / scale;
         const sh = photoH / scale;
@@ -112,7 +104,6 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
         ctx.fillRect(photoX, y, photoW, photoH);
       }
 
-      // Label
       ctx.fillStyle = "#cdb4db";
       ctx.font = "8px 'Press Start 2P', monospace";
       ctx.textAlign = "center";
@@ -120,13 +111,11 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
       ctx.fillText(labels[i], w / 2, y + photoH + 20);
     }
 
-    // Footer
     ctx.fillStyle = "#ffafcc";
     ctx.font = "8px 'Press Start 2P', monospace";
     ctx.textAlign = "center";
     ctx.fillText("\u2014 Mini Carlo\u2122 \u2014", w / 2, totalH - 12);
 
-    // Download
     canvas.toBlob((blob) => {
       if (!blob) return;
       const url = URL.createObjectURL(blob);
@@ -167,10 +156,8 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
         paddingBottom: "32px",
       }}
     >
-      {/* Film strip */}
       {hasPhotos && (
         <div
-          ref={stripRef}
           style={{
             width: "100%",
             maxWidth: "340px",
@@ -180,7 +167,6 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
             border: "3px solid var(--border-color)",
           }}
         >
-          {/* Left sprocket column */}
           <div
             style={{
               position: "absolute",
@@ -209,7 +195,6 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
             ))}
           </div>
 
-          {/* Right sprocket column */}
           <div
             style={{
               position: "absolute",
@@ -238,7 +223,6 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
             ))}
           </div>
 
-          {/* Title */}
           <div
             style={{
               textAlign: "center",
@@ -252,7 +236,6 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
             memories
           </div>
 
-          {/* Photo frames */}
           <div
             style={{
               display: "flex",
@@ -297,7 +280,6 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
             ))}
           </div>
 
-          {/* Footer */}
           <div
             style={{
               textAlign: "center",
@@ -313,12 +295,10 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
         </div>
       )}
 
-      {/* Download button */}
       {hasPhotos && (
         <PixelButton onClick={handleDownload}>Save Memories</PixelButton>
       )}
 
-      {/* Continue to final question */}
       <PixelButton
         variant="secondary"
         onClick={() => dispatch({ type: "NEXT_SCREEN" })}

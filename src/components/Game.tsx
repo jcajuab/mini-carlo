@@ -133,9 +133,7 @@ export function Game({ state, dispatch }: GameProps) {
         minHeight: 0,
       }}
     >
-      {/* Chapter header pinned to top */}
       {(() => {
-        // Find the most recent chapter by walking back from current screen
         const idx = screens.findIndex((s) => s.name === screen.name);
         for (let i = idx; i >= 0; i--) {
           if (screens[i].chapter) {
@@ -145,7 +143,6 @@ export function Game({ state, dispatch }: GameProps) {
         return null;
       })()}
 
-      {/* Content centered in remaining space */}
       <div
         style={{
           flex: 1,
@@ -159,7 +156,6 @@ export function Game({ state, dispatch }: GameProps) {
         {content}
       </div>
 
-      {/* Reset pinned to bottom */}
       {state.gameStarted && (
         <button
           onClick={handleReset}

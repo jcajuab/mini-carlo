@@ -10,7 +10,6 @@ export async function processPhoto(file: File): Promise<Blob> {
 
       let { width, height } = img;
 
-      // Downscale if needed
       if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
         if (width > height) {
           height = Math.round((height * MAX_DIMENSION) / width);
@@ -31,8 +30,6 @@ export async function processPhoto(file: File): Promise<Blob> {
         return;
       }
 
-      // CSS image-orientation: from-image handles EXIF in modern browsers.
-      // Canvas drawImage also respects EXIF in modern browsers (Safari 13+, Chrome 81+).
       ctx.drawImage(img, 0, 0, width, height);
 
       canvas.toBlob(

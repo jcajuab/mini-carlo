@@ -5,7 +5,6 @@ interface DialogueBoxProps {
   children: ReactNode;
 }
 
-// Mini Carlo pixel art avatar — black hair, tan skin, glasses
 const AVATAR_SVG = (
   <svg
     viewBox="0 0 60 60"
@@ -13,18 +12,14 @@ const AVATAR_SVG = (
     height="52"
     style={{ display: "block", imageRendering: "pixelated" }}
   >
-    {/* Hair */}
     <rect x="12" y="0" width="36" height="6" fill="#2a2a2a" />
     <rect x="6" y="6" width="48" height="6" fill="#2a2a2a" />
     <rect x="6" y="12" width="6" height="6" fill="#2a2a2a" />
     <rect x="48" y="12" width="6" height="6" fill="#2a2a2a" />
 
-    {/* Forehead */}
     <rect x="12" y="12" width="36" height="6" fill="#c68642" />
 
-    {/* Eyes row — tan skin base */}
     <rect x="6" y="18" width="48" height="6" fill="#c68642" />
-    {/* Glasses frame */}
     <rect
       x="12"
       y="17"
@@ -43,28 +38,21 @@ const AVATAR_SVG = (
       stroke="#cdb4db"
       strokeWidth="2"
     />
-    {/* Bridge */}
     <rect x="28" y="19" width="4" height="2" fill="#cdb4db" />
-    {/* Left eye */}
     <rect x="18" y="19" width="6" height="4" fill="#2a1d3e" />
     <rect x="20" y="20" width="2" height="2" fill="#fff" />
-    {/* Right eye */}
     <rect x="36" y="19" width="6" height="4" fill="#2a1d3e" />
     <rect x="38" y="20" width="2" height="2" fill="#fff" />
 
-    {/* Nose / cheeks */}
     <rect x="6" y="24" width="48" height="6" fill="#c68642" />
     <rect x="28" y="25" width="4" height="4" fill="#b07535" />
 
-    {/* Mouth row */}
     <rect x="6" y="30" width="48" height="6" fill="#c68642" />
     <rect x="24" y="32" width="12" height="3" fill="#2a1d3e" />
     <rect x="26" y="32" width="8" height="2" fill="#ffafcc" opacity="0.5" />
 
-    {/* Chin */}
     <rect x="12" y="36" width="36" height="6" fill="#c68642" />
 
-    {/* Neck / Shirt */}
     <rect x="18" y="42" width="24" height="6" fill="#c68642" />
     <rect x="6" y="48" width="48" height="6" fill="#3d2d5c" />
     <rect x="0" y="54" width="60" height="6" fill="#3d2d5c" />
@@ -97,7 +85,6 @@ export function DialogueBox({ speaker, children }: DialogueBoxProps) {
 
   return (
     <div style={{ width: "100%" }}>
-      {/* Single unified box with avatar + text */}
       <div
         style={{
           border: "3px solid var(--border-color)",
@@ -109,7 +96,6 @@ export function DialogueBox({ speaker, children }: DialogueBoxProps) {
           width: "100%",
         }}
       >
-        {/* Avatar inside the box */}
         <div
           style={{
             flexShrink: 0,
@@ -142,7 +128,6 @@ export function DialogueBox({ speaker, children }: DialogueBoxProps) {
           </div>
         </div>
 
-        {/* Text content */}
         <div
           style={{
             flex: 1,

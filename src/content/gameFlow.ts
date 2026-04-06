@@ -1,4 +1,4 @@
-import type { ScreenNode } from "../types";
+import type { ScreenNode, GameState } from "../types";
 
 export const screens: ScreenNode[] = [
   // === START MENU ===
@@ -349,15 +349,13 @@ export const screens: ScreenNode[] = [
   },
 ];
 
-// Build a lookup map for O(1) screen access by name
 export const screenMap = new Map<string, ScreenNode>(
   screens.map((s) => [s.name, s]),
 );
 
-// Get the next screen name given current screen and state
 export function getNextScreenName(
   current: ScreenNode,
-  state: import("../types").GameState,
+  state: GameState,
 ): string | null {
   if (current.next) {
     return typeof current.next === "function"

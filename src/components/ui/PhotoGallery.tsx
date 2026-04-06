@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getPhoto } from "../../db/photoDb";
 
 interface PhotoGalleryProps {
@@ -7,25 +7,32 @@ interface PhotoGalleryProps {
 
 export function PhotoGallery({ activityIds }: PhotoGalleryProps) {
   const [photoUrls, setPhotoUrls] = useState<Record<string, string>>({});
+  const createdUrlsRef = useRef<string[]>([]);
 
   useEffect(() => {
     let cancelled = false;
+    const newUrls: string[] = [];
     async function loadPhotos() {
       const urls: Record<string, string> = {};
       for (const id of activityIds) {
         const blob = await getPhoto(id);
         if (blob && !cancelled) {
-          urls[id] = URL.createObjectURL(blob);
+          const url = URL.createObjectURL(blob);
+          newUrls.push(url);
+          urls[id] = url;
         }
       }
-      if (!cancelled) setPhotoUrls(urls);
+      if (!cancelled) {
+        createdUrlsRef.current = newUrls;
+        setPhotoUrls(urls);
+      }
     }
     loadPhotos();
     return () => {
       cancelled = true;
-      Object.values(photoUrls).forEach(URL.revokeObjectURL);
+      createdUrlsRef.current.forEach((url) => URL.revokeObjectURL(url));
+      createdUrlsRef.current = [];
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activityIds]);
 
   if (Object.keys(photoUrls).length === 0) return null;

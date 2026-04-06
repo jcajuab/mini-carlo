@@ -35,7 +35,6 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       if (state.dialogueLineIndex < lines.length - 1) {
         return { ...state, dialogueLineIndex: state.dialogueLineIndex + 1 };
       }
-      // Last line reached — advance to next screen
       const nextName = getNextScreenName(currentScreen, state);
       if (!nextName) return { ...state, gameFinished: true };
       return { ...state, currentScreenName: nextName, dialogueLineIndex: 0 };
@@ -50,7 +49,6 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     case "MAKE_CHOICE": {
       const newChoices = { ...state.choices, [action.choiceId]: action.option };
       const updatedState = { ...state, choices: newChoices };
-      // Resolve the next screen using the updated state (choice may affect branching)
       const nextName = getNextScreenName(currentScreen, updatedState);
       if (!nextName) return { ...updatedState, gameFinished: true };
       return {
@@ -61,7 +59,6 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     }
 
     case "SUBMIT_QUIZ": {
-      // Guard: no-op if quiz already graded
       if (state.quizPassed !== null) return state;
 
       const correctCount = action.answers.reduce((count, answer, i) => {
@@ -95,12 +92,6 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         currentScreenName: nextName,
         dialogueLineIndex: 0,
       };
-    }
-
-    case "PHOTO_SKIPPED": {
-      const nextName = getNextScreenName(currentScreen, state);
-      if (!nextName) return { ...state, gameFinished: true };
-      return { ...state, currentScreenName: nextName, dialogueLineIndex: 0 };
     }
 
     case "RESET_GAME":

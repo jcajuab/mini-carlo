@@ -10,13 +10,12 @@ function loadState(): GameState {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved) as GameState;
-      // Validate it has required fields
       if (parsed.currentScreenName && typeof parsed.gameStarted === "boolean") {
         return parsed;
       }
     }
   } catch {
-    // Corrupted state, start fresh
+    // ignore
   }
   return initialState;
 }

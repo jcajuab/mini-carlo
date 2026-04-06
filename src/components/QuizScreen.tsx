@@ -27,14 +27,16 @@ export function QuizScreen({ dispatch }: QuizScreenProps) {
   );
 
   const answersRef = useRef(answers);
-  answersRef.current = answers;
+
+  useEffect(() => {
+    answersRef.current = answers;
+  }, [answers]);
 
   const { secondsLeft, start } = useTimer(QUIZ_TIME_LIMIT_SECONDS);
 
   useEffect(() => {
     start(() => handleSubmit(answersRef.current));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [start, handleSubmit]);
 
   const q = QUIZ_QUESTIONS[currentQuestion];
   const isLastQuestion = currentQuestion === QUIZ_QUESTIONS.length - 1;
@@ -52,7 +54,6 @@ export function QuizScreen({ dispatch }: QuizScreenProps) {
     >
       <Timer secondsLeft={secondsLeft} />
 
-      {/* Question counter */}
       <div
         style={{
           fontSize: "var(--font-size-sm)",
