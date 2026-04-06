@@ -4,19 +4,23 @@ export const ACTIVITY_LABELS: Record<string, string> = {
   dinner: "Dinner",
 };
 
+const SCALE = 3;
+
 export async function downloadMemories(
   photoUrls: Record<string, string>,
 ): Promise<void> {
   const canvas = document.createElement("canvas");
-  const w = 400;
-  const frameH = 280;
-  const sprocketW = 28;
+  const w = 400 * SCALE;
+  const frameH = 280 * SCALE;
+  const sprocketW = 28 * SCALE;
   const photoIds = Object.keys(ACTIVITY_LABELS).filter((id) => photoUrls[id]);
-  const totalH = photoIds.length * frameH + 60;
+  const totalH = photoIds.length * frameH + 60 * SCALE;
   canvas.width = w;
   canvas.height = totalH;
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
+
+  const s = SCALE;
 
   ctx.fillStyle = "#2a1d3e";
   ctx.fillRect(0, 0, w, totalH);
@@ -25,10 +29,10 @@ export async function downloadMemories(
   ctx.fillRect(0, 0, sprocketW, totalH);
   ctx.fillRect(w - sprocketW, 0, sprocketW, totalH);
 
-  for (let y = 8; y < totalH; y += 24) {
+  for (let y = 8 * s; y < totalH; y += 24 * s) {
     ctx.fillStyle = "#2a1d3e";
-    ctx.fillRect(6, y, 16, 14);
-    ctx.fillRect(w - 22, y, 16, 14);
+    ctx.fillRect(6 * s, y, 16 * s, 14 * s);
+    ctx.fillRect(w - 22 * s, y, 16 * s, 14 * s);
   }
 
   const stripX = sprocketW;
@@ -37,20 +41,20 @@ export async function downloadMemories(
   ctx.fillRect(stripX, 0, stripW, totalH);
 
   ctx.fillStyle = "#ffafcc";
-  ctx.font = "bold 14px 'Press Start 2P', monospace";
+  ctx.font = `bold ${14 * s}px 'Press Start 2P', monospace`;
   ctx.textAlign = "center";
-  ctx.fillText("memories", w / 2, 30);
+  ctx.fillText("memories", w / 2, 30 * s);
 
   for (let i = 0; i < photoIds.length; i++) {
     const id = photoIds[i];
     const url = photoUrls[id];
-    const y = 50 + i * frameH;
-    const photoX = stripX + 12;
-    const photoW = stripW - 24;
-    const photoH = frameH - 40;
+    const y = 50 * s + i * frameH;
+    const photoX = stripX + 12 * s;
+    const photoW = stripW - 24 * s;
+    const photoH = frameH - 40 * s;
 
     ctx.fillStyle = "#2a1d3e";
-    ctx.fillRect(photoX - 3, y - 3, photoW + 6, photoH + 6);
+    ctx.fillRect(photoX - 3 * s, y - 3 * s, photoW + 6 * s, photoH + 6 * s);
 
     try {
       const img = new Image();
@@ -73,9 +77,9 @@ export async function downloadMemories(
     }
 
     ctx.fillStyle = "#cdb4db";
-    ctx.font = "8px 'Press Start 2P', monospace";
+    ctx.font = `${8 * s}px 'Press Start 2P', monospace`;
     ctx.textAlign = "center";
-    ctx.fillText(ACTIVITY_LABELS[id], w / 2, y + photoH + 20);
+    ctx.fillText(ACTIVITY_LABELS[id], w / 2, y + photoH + 20 * s);
   }
 
   canvas.toBlob((blob) => {
