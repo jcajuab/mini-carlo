@@ -4,10 +4,6 @@
 
 Before the actual date, update these:
 
-- [ ] **Quiz answers** - Edit `src/content/quizConfig.ts`
-  - What did Carlo order? (correct answer + options)
-  - What is Carlo's favorite color? (correct answer + options)
-  - How old is Carlo? (correct answer + options)
 - [ ] **Payment proof screenshot** - Replace `public/assets/fake-payment-proof.png` with your real screenshot
 - [ ] **Smiski coupon image** - Replace `public/assets/smiski-coupon.png` with your real coupon image
 - [ ] **Deploy** - Push to `main` and enable GitHub Pages (Settings > Pages > Source: GitHub Actions)
