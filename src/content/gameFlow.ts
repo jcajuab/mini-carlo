@@ -10,16 +10,11 @@ export const screens: ScreenNode[] = [
     type: "dialogue",
     lines: [
       "...Oh. A real human.",
-      "Give me a second. I don't usually get perceived.",
+      "So you're Sitti. That means... yeah. You've met him.",
     ],
   },
   {
     name: "intro-2",
-    type: "dialogue",
-    lines: ["So you're Sitti. That means... yeah. You've met him."],
-  },
-  {
-    name: "intro-3",
     type: "dialogue",
     lines: [
       "My real-life counterpart. Tall. Handsome. Questionable decision-making.",
@@ -52,10 +47,7 @@ export const screens: ScreenNode[] = [
   {
     name: "intro-closing",
     type: "dialogue",
-    lines: [
-      "Welcome to the officially unofficial\u2026",
-      "\u201CDate\u201D Itinerary System\u2122.",
-    ],
+    lines: ["Welcome to the \u201CDate\u201D Itinerary System\u2122."],
   },
 
   // === MAP REVEAL ===
@@ -80,12 +72,12 @@ export const screens: ScreenNode[] = [
     ],
   },
 
-  // === ACT I — COFFEE ===
+  // === ACT I ===
   {
     name: "coffee-entry",
     type: "dialogue",
-    chapter: "Act I \u2014 Coffee",
-    lines: ["First stop: Coffee.", "Also known as: the interrogation stage."],
+    chapter: "Act I // Coffee",
+    lines: ["First stop: Coffee."],
   },
   {
     name: "coffee-choice",
@@ -95,14 +87,12 @@ export const screens: ScreenNode[] = [
     options: ["Starbucks", "The Coffee Bean & Tea Leaf"],
   },
   {
-    name: "coffee-response",
-    type: "dialogue",
-    lines: ["Statistically mid. Emotionally valid."],
-  },
-  {
     name: "payment-gag-intro",
     type: "dialogue",
-    lines: ["Oh\u2014before you go.", "I have documentation."],
+    lines: [
+      "Statistically mid. Emotionally valid.",
+      "Oh. Before you go. I have documentation.",
+    ],
     continueLabel: "???",
   },
   {
@@ -118,12 +108,12 @@ export const screens: ScreenNode[] = [
   {
     name: "coffee-realworld",
     type: "dialogue",
-    lines: ["Go. Talk. Exchange lore.", "I'll be here. Judging quietly."],
+    lines: ["Go. Talk. I'll be here."],
   },
   {
     name: "coffee-photo",
     type: "upload",
-    lines: ["Take a photo together.", "Not for surveillance. Mostly."],
+    lines: ["Take a photo together."],
     activityId: "coffee",
   },
   {
@@ -132,16 +122,12 @@ export const screens: ScreenNode[] = [
     lines: ["Received. Archiving."],
   },
 
-  // === ACT I.V — POP QUIZ ===
+  // === ACT I.V ===
   {
     name: "quiz-entry",
     type: "dialogue",
-    chapter: "Act I.V \u2014 Pop Quiz",
-    lines: [
-      "You survived small talk.",
-      "Time to verify that information was retained.",
-      "You have 5 minutes. No pressure. Except all of it.",
-    ],
+    chapter: "Act I.V // Pop Quiz",
+    lines: ["You survived small talk.", "Pop Quiz. 5 minutes. No pressure."],
   },
   {
     name: "quiz",
@@ -153,7 +139,7 @@ export const screens: ScreenNode[] = [
   {
     name: "quiz-result-pass",
     type: "dialogue",
-    lines: ["Oh???", "You were paying attention.", "You have earned this."],
+    lines: ["Oh??? You were paying attention.", "You have earned this."],
     next: "quiz-reward",
   },
   {
@@ -170,12 +156,12 @@ export const screens: ScreenNode[] = [
     next: "intermission-entry",
   },
 
-  // === ACT II — INTERMISSION ===
+  // === ACT II ===
   {
     name: "intermission-entry",
     type: "dialogue",
-    chapter: "Act II \u2014 Intermission",
-    lines: ["Phase two.", "Less talking. More doing."],
+    chapter: "Act II // Intermission",
+    lines: ["Phase two."],
   },
   {
     name: "intermission-choice",
@@ -187,15 +173,7 @@ export const screens: ScreenNode[] = [
   {
     name: "intermission-response",
     type: "dialogue",
-    lines: [
-      "This one is 50/50. No loopholes.",
-      "Relax though. Carlo handles dinner. He insisted.",
-    ],
-  },
-  {
-    name: "intermission-realworld",
-    type: "dialogue",
-    lines: ["Go enjoy it. I'll be waiting."],
+    lines: ["50/50 split. Carlo handles dinner. Go enjoy it."],
   },
   {
     name: "intermission-photo",
@@ -209,20 +187,17 @@ export const screens: ScreenNode[] = [
     lines: ["Noted."],
   },
 
-  // === ACT III — DINNER ===
+  // === ACT III ===
   {
     name: "dinner-entry",
     type: "dialogue",
-    chapter: "Act III \u2014 Dinner",
+    chapter: "Act III // Dinner",
     lines: ["Final stage. Dinner."],
   },
   {
     name: "dinner-prompt",
     type: "dialogue",
-    lines: [
-      "No choices here. Carlo picks.",
-      "Eat. Talk. Try not to overthink anything.",
-    ],
+    lines: ["Carlo picks. Eat. Talk. Don't overthink."],
   },
   {
     name: "dinner-photo",
@@ -242,7 +217,7 @@ export const screens: ScreenNode[] = [
     name: "ending-entry",
     type: "dialogue",
     lines: [
-      "Compiling memories\u2026",
+      "Compiling memories...",
       "Do not close your eyes. That does nothing but it sounds dramatic.",
     ],
   },
@@ -270,7 +245,7 @@ export const screens: ScreenNode[] = [
     type: "dialogue",
     lines: [
       "Not bad. Not bad at all.",
-      "I'll\u2026 log this as a successful run.",
+      "I'll... log this as a successful run.",
     ],
     continueLabel: "BYE",
     resetsGame: true,
