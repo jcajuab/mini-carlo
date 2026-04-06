@@ -1,5 +1,5 @@
 import type { GameState, GameAction } from "../types";
-import { screenMap } from "../content/gameFlow";
+import { screens, screenMap } from "../content/gameFlow";
 import { StartMenu } from "./StartMenu";
 import { DialogueScreen } from "./DialogueScreen";
 import { ChoiceScreen } from "./ChoiceScreen";
@@ -134,7 +134,16 @@ export function Game({ state, dispatch }: GameProps) {
       }}
     >
       {/* Chapter header pinned to top */}
-      {screen.chapter && <ChapterHeader title={screen.chapter} />}
+      {(() => {
+        // Find the most recent chapter by walking back from current screen
+        const idx = screens.findIndex((s) => s.name === screen.name);
+        for (let i = idx; i >= 0; i--) {
+          if (screens[i].chapter) {
+            return <ChapterHeader title={screens[i].chapter!} />;
+          }
+        }
+        return null;
+      })()}
 
       {/* Content centered in remaining space */}
       <div
