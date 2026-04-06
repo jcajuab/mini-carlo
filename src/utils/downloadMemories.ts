@@ -5,56 +5,90 @@ export const ACTIVITY_LABELS: Record<string, string> = {
 };
 
 const SCALE = 3;
+const CANVAS_WIDTH = 400 * SCALE;
+const FRAME_HEIGHT = 280 * SCALE;
+const SPROCKET_WIDTH = 28 * SCALE;
+const TITLE_OFFSET = 50 * SCALE;
+const PHOTO_PADDING = 12 * SCALE;
+const PHOTO_BOTTOM_MARGIN = 40 * SCALE;
+const LABEL_Y_OFFSET = 20 * SCALE;
+const TITLE_FONT_SIZE = 14 * SCALE;
+const LABEL_FONT_SIZE = 8 * SCALE;
+const SPROCKET_HOLE_HEIGHT = 14 * SCALE;
+const SPROCKET_HOLE_WIDTH = 16 * SCALE;
+const SPROCKET_HOLE_SPACING = 24 * SCALE;
+const SPROCKET_HOLE_MARGIN = 6 * SCALE;
+const SPROCKET_HOLE_INSET = 8 * SCALE;
+
+const COLOR_STRIP_BG = "#342650";
+const COLOR_FILM_BG = "#2a1d3e";
+const COLOR_SPROCKET = "#111118";
+const COLOR_PHOTO_PLACEHOLDER = "#4a2d5c";
+const COLOR_TITLE = "#ffafcc";
+const COLOR_LABEL = "#cdb4db";
+const COLOR_FRAME_BORDER = "#2a1d3e";
 
 export async function downloadMemories(
   photoUrls: Record<string, string>,
 ): Promise<void> {
-  const canvas = document.createElement("canvas");
-  const w = 400 * SCALE;
-  const frameH = 280 * SCALE;
-  const sprocketW = 28 * SCALE;
   const photoIds = Object.keys(ACTIVITY_LABELS).filter((id) => photoUrls[id]);
-  const totalH = photoIds.length * frameH + 60 * SCALE;
-  canvas.width = w;
+  const totalH = photoIds.length * FRAME_HEIGHT + 60 * SCALE;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = CANVAS_WIDTH;
   canvas.height = totalH;
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
-  const s = SCALE;
+  ctx.fillStyle = COLOR_FILM_BG;
+  ctx.fillRect(0, 0, CANVAS_WIDTH, totalH);
 
-  ctx.fillStyle = "#2a1d3e";
-  ctx.fillRect(0, 0, w, totalH);
+  ctx.fillStyle = COLOR_SPROCKET;
+  ctx.fillRect(0, 0, SPROCKET_WIDTH, totalH);
+  ctx.fillRect(CANVAS_WIDTH - SPROCKET_WIDTH, 0, SPROCKET_WIDTH, totalH);
 
-  ctx.fillStyle = "#111118";
-  ctx.fillRect(0, 0, sprocketW, totalH);
-  ctx.fillRect(w - sprocketW, 0, sprocketW, totalH);
-
-  for (let y = 8 * s; y < totalH; y += 24 * s) {
-    ctx.fillStyle = "#2a1d3e";
-    ctx.fillRect(6 * s, y, 16 * s, 14 * s);
-    ctx.fillRect(w - 22 * s, y, 16 * s, 14 * s);
+  for (let y = SPROCKET_HOLE_INSET; y < totalH; y += SPROCKET_HOLE_SPACING) {
+    ctx.fillStyle = COLOR_FILM_BG;
+    ctx.fillRect(
+      SPROCKET_HOLE_MARGIN,
+      y,
+      SPROCKET_HOLE_WIDTH,
+      SPROCKET_HOLE_HEIGHT,
+    );
+    ctx.fillRect(
+      CANVAS_WIDTH - SPROCKET_HOLE_MARGIN - SPROCKET_HOLE_WIDTH,
+      y,
+      SPROCKET_HOLE_WIDTH,
+      SPROCKET_HOLE_HEIGHT,
+    );
   }
 
-  const stripX = sprocketW;
-  const stripW = w - sprocketW * 2;
-  ctx.fillStyle = "#342650";
+  const stripX = SPROCKET_WIDTH;
+  const stripW = CANVAS_WIDTH - SPROCKET_WIDTH * 2;
+  ctx.fillStyle = COLOR_STRIP_BG;
   ctx.fillRect(stripX, 0, stripW, totalH);
 
-  ctx.fillStyle = "#ffafcc";
-  ctx.font = `bold ${14 * s}px 'Press Start 2P', monospace`;
+  ctx.fillStyle = COLOR_TITLE;
+  ctx.font = `bold ${TITLE_FONT_SIZE}px 'Press Start 2P', monospace`;
   ctx.textAlign = "center";
-  ctx.fillText("memories", w / 2, 30 * s);
+  ctx.fillText("memories", CANVAS_WIDTH / 2, 30 * SCALE);
 
   for (let i = 0; i < photoIds.length; i++) {
     const id = photoIds[i];
     const url = photoUrls[id];
-    const y = 50 * s + i * frameH;
-    const photoX = stripX + 12 * s;
-    const photoW = stripW - 24 * s;
-    const photoH = frameH - 40 * s;
+    const y = TITLE_OFFSET + i * FRAME_HEIGHT;
+    const photoX = stripX + PHOTO_PADDING;
+    const photoW = stripW - PHOTO_PADDING * 2;
+    const photoH = FRAME_HEIGHT - PHOTO_BOTTOM_MARGIN;
+    const border = 3 * SCALE;
 
-    ctx.fillStyle = "#2a1d3e";
-    ctx.fillRect(photoX - 3 * s, y - 3 * s, photoW + 6 * s, photoH + 6 * s);
+    ctx.fillStyle = COLOR_FRAME_BORDER;
+    ctx.fillRect(
+      photoX - border,
+      y - border,
+      photoW + border * 2,
+      photoH + border * 2,
+    );
 
     try {
       const img = new Image();
@@ -71,14 +105,18 @@ export async function downloadMemories(
       const sy = (img.height - sh) / 2;
       ctx.drawImage(img, sx, sy, sw, sh, photoX, y, photoW, photoH);
     } catch {
-      ctx.fillStyle = "#4a2d5c";
+      ctx.fillStyle = COLOR_PHOTO_PLACEHOLDER;
       ctx.fillRect(photoX, y, photoW, photoH);
     }
 
-    ctx.fillStyle = "#cdb4db";
-    ctx.font = `${8 * s}px 'Press Start 2P', monospace`;
+    ctx.fillStyle = COLOR_LABEL;
+    ctx.font = `${LABEL_FONT_SIZE}px 'Press Start 2P', monospace`;
     ctx.textAlign = "center";
-    ctx.fillText(ACTIVITY_LABELS[id], w / 2, y + photoH + 20 * s);
+    ctx.fillText(
+      ACTIVITY_LABELS[id],
+      CANVAS_WIDTH / 2,
+      y + photoH + LABEL_Y_OFFSET,
+    );
   }
 
   canvas.toBlob((blob) => {

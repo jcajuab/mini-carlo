@@ -11,6 +11,34 @@ interface PhotoUploadProps {
   dispatch: React.Dispatch<GameAction>;
 }
 
+const screenStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+  width: "100%",
+  alignItems: "center",
+};
+
+const uploadButtonsStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "10px",
+  width: "100%",
+  alignItems: "center",
+};
+
+const uploadButtonStyle: React.CSSProperties = {
+  width: "100%",
+  maxWidth: "280px",
+};
+
+const errorStyle: React.CSSProperties = {
+  color: "var(--fail)",
+  fontSize: "var(--font-size-sm)",
+};
+
+const hiddenInputStyle: React.CSSProperties = { display: "none" };
+
 export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
   const lines = screen.lines ?? [];
   const currentLine = lines[lineIndex] ?? "";
@@ -19,6 +47,7 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
   const [error, setError] = useState<string | null>(null);
   const galleryRef = useRef<HTMLInputElement>(null);
   const cameraRef = useRef<HTMLInputElement>(null);
+
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !screen.activityId) return;
@@ -38,15 +67,7 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "24px",
-        width: "100%",
-        alignItems: "center",
-      }}
-    >
+    <div style={screenStyle}>
       <DialogueBox speaker="Mini Carlo">{currentLine}</DialogueBox>
 
       {isLastLine ? (
@@ -56,7 +77,7 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
             type="file"
             accept="image/*"
             onChange={handleFile}
-            style={{ display: "none" }}
+            style={hiddenInputStyle}
           />
           <input
             ref={cameraRef}
@@ -64,22 +85,14 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
             accept="image/*"
             capture="environment"
             onChange={handleFile}
-            style={{ display: "none" }}
+            style={hiddenInputStyle}
           />
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-              width: "100%",
-              alignItems: "center",
-            }}
-          >
+          <div style={uploadButtonsStyle}>
             <PixelButton
               onClick={() => galleryRef.current?.click()}
               disabled={uploading}
-              style={{ width: "100%", maxWidth: "280px" }}
+              style={uploadButtonStyle}
             >
               {uploading ? "Saving..." : "Choose from Gallery"}
             </PixelButton>
@@ -87,19 +100,13 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
               variant="secondary"
               onClick={() => cameraRef.current?.click()}
               disabled={uploading}
-              style={{ width: "100%", maxWidth: "280px" }}
+              style={uploadButtonStyle}
             >
               Take a Photo
             </PixelButton>
           </div>
 
-          {error && (
-            <div
-              style={{ color: "var(--fail)", fontSize: "var(--font-size-sm)" }}
-            >
-              {error}
-            </div>
-          )}
+          {error && <div style={errorStyle}>{error}</div>}
         </>
       ) : (
         <PixelButton onClick={() => dispatch({ type: "NEXT_LINE" })}>

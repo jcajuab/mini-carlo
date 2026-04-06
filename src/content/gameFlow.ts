@@ -1,10 +1,8 @@
 import type { ScreenNode, GameState } from "../types";
 
 const screens: ScreenNode[] = [
-  // === START MENU ===
   { name: "start-menu", type: "start" },
 
-  // === INTRO ===
   {
     name: "intro-1",
     type: "dialogue",
@@ -50,7 +48,6 @@ const screens: ScreenNode[] = [
     lines: ["Welcome to the \u201CDate\u201D Itinerary System\u2122."],
   },
 
-  // === MAP REVEAL ===
   {
     name: "map-observe",
     type: "dialogue",
@@ -72,7 +69,6 @@ const screens: ScreenNode[] = [
     ],
   },
 
-  // === ACT I ===
   {
     name: "coffee-entry",
     type: "dialogue",
@@ -122,7 +118,6 @@ const screens: ScreenNode[] = [
     lines: ["Received. Archiving."],
   },
 
-  // === ACT I.V ===
   {
     name: "quiz-entry",
     type: "dialogue",
@@ -158,7 +153,6 @@ const screens: ScreenNode[] = [
     next: "intermission-entry",
   },
 
-  // === ACT II ===
   {
     name: "intermission-entry",
     type: "dialogue",
@@ -189,7 +183,6 @@ const screens: ScreenNode[] = [
     lines: ["Noted."],
   },
 
-  // === ACT III ===
   {
     name: "dinner-entry",
     type: "dialogue",
@@ -214,7 +207,6 @@ const screens: ScreenNode[] = [
     lines: ["Filed."],
   },
 
-  // === ENDING ===
   {
     name: "ending-entry",
     type: "dialogue",

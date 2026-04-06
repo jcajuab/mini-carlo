@@ -8,6 +8,34 @@ interface ImageRevealProps {
   dispatch: React.Dispatch<GameAction>;
 }
 
+const screenStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+  width: "100%",
+  alignItems: "center",
+};
+
+const imageFrameStyle: React.CSSProperties = {
+  border: "3px solid var(--border-color)",
+  overflow: "hidden",
+  width: "100%",
+  backgroundColor: "var(--bg-card)",
+  padding: "8px",
+};
+
+const imageStyle: React.CSSProperties = {
+  width: "100%",
+  height: "auto",
+  display: "block",
+  imageRendering: "auto",
+};
+
+const buttonRowStyle: React.CSSProperties = {
+  display: "flex",
+  gap: "12px",
+};
+
 function downloadImage(src: string, filename: string) {
   const a = document.createElement("a");
   a.href = src;
@@ -23,42 +51,17 @@ export function ImageReveal({ screen, lineIndex, dispatch }: ImageRevealProps) {
     dispatch({ type: isLastLine ? "NEXT_SCREEN" : "NEXT_LINE" });
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "24px",
-        width: "100%",
-        alignItems: "center",
-      }}
-    >
+    <div style={screenStyle}>
       {screen.asset && (
-        <div
-          style={{
-            border: "3px solid var(--border-color)",
-            overflow: "hidden",
-            width: "100%",
-            backgroundColor: "var(--bg-card)",
-            padding: "8px",
-          }}
-        >
-          <img
-            src={screen.asset}
-            alt="Evidence"
-            style={{
-              width: "100%",
-              height: "auto",
-              display: "block",
-              imageRendering: "auto",
-            }}
-          />
+        <div style={imageFrameStyle}>
+          <img src={screen.asset} alt="Evidence" style={imageStyle} />
         </div>
       )}
 
       <DialogueBox speaker="Mini Carlo">{currentLine}</DialogueBox>
 
       {isLastLine && screen.saveable ? (
-        <div style={{ display: "flex", gap: "12px" }}>
+        <div style={buttonRowStyle}>
           <PixelButton
             onClick={() => {
               downloadImage(

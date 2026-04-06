@@ -9,50 +9,37 @@ interface MapScreenProps {
   dispatch: React.Dispatch<GameAction>;
 }
 
+const screenStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+  width: "100%",
+  alignItems: "center",
+};
+
 export function MapScreen({ screen, lineIndex, dispatch }: MapScreenProps) {
   const lines = screen.lines ?? [];
-  const hasLines = lines.length > 0;
   const currentLine = lines[lineIndex] ?? "";
   const isLastLine = lineIndex >= lines.length - 1;
   const label = screen.continueLabel ?? "...";
-
-  if (!hasLines) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "24px",
-          width: "100%",
-          alignItems: "center",
-        }}
-      >
-        <AdventureMap />
-        <PixelButton onClick={() => dispatch({ type: "NEXT_SCREEN" })}>
-          {label}
-        </PixelButton>
-      </div>
-    );
-  }
+  const hasLines = lines.length > 0;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "24px",
-        width: "100%",
-        alignItems: "center",
-      }}
-    >
+    <div style={screenStyle}>
       <AdventureMap />
-      <DialogueBox speaker="Mini Carlo">{currentLine}</DialogueBox>
+
+      {hasLines && (
+        <DialogueBox speaker="Mini Carlo">{currentLine}</DialogueBox>
+      )}
+
       <PixelButton
         onClick={() =>
-          dispatch({ type: isLastLine ? "NEXT_SCREEN" : "NEXT_LINE" })
+          dispatch({
+            type: !hasLines || isLastLine ? "NEXT_SCREEN" : "NEXT_LINE",
+          })
         }
       >
-        {isLastLine ? label : "..."}
+        {!hasLines || isLastLine ? label : "..."}
       </PixelButton>
     </div>
   );

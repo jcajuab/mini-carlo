@@ -2,6 +2,15 @@ interface TimerProps {
   secondsLeft: number;
 }
 
+const baseStyle: React.CSSProperties = {
+  fontFamily: "var(--font-pixel)",
+  fontSize: "var(--font-size-xl)",
+  textAlign: "center",
+  padding: "8px 16px",
+  border: "3px solid",
+  backgroundColor: "var(--bg-secondary)",
+};
+
 export function Timer({ secondsLeft }: TimerProps) {
   const minutes = Math.floor(secondsLeft / 60);
   const seconds = secondsLeft % 60;
@@ -10,13 +19,9 @@ export function Timer({ secondsLeft }: TimerProps) {
   return (
     <div
       style={{
-        fontFamily: "var(--font-pixel)",
-        fontSize: "var(--font-size-xl)",
+        ...baseStyle,
         color: isUrgent ? "var(--fail)" : "var(--text-accent)",
-        textAlign: "center",
-        padding: "8px 16px",
-        border: `3px solid ${isUrgent ? "var(--fail)" : "var(--border-color)"}`,
-        backgroundColor: "var(--bg-secondary)",
+        borderColor: isUrgent ? "var(--fail)" : "var(--border-color)",
         animation: isUrgent ? "blink 0.5s step-end infinite" : undefined,
       }}
     >

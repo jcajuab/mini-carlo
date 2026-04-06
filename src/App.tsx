@@ -15,7 +15,7 @@ function loadState(): GameState {
       }
     }
   } catch {
-    // ignore
+    // corrupted or missing state
   }
   return initialState;
 }

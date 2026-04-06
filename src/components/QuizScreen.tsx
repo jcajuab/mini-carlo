@@ -10,6 +10,32 @@ interface QuizScreenProps {
   dispatch: React.Dispatch<GameAction>;
 }
 
+const screenStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "20px",
+  width: "100%",
+  alignItems: "center",
+};
+
+const questionCounterStyle: React.CSSProperties = {
+  fontSize: "var(--font-size-sm)",
+  color: "var(--text-secondary)",
+};
+
+const optionsColumnStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "8px",
+  width: "100%",
+};
+
+const optionButtonStyle: React.CSSProperties = {
+  width: "100%",
+  fontSize: "var(--font-size-sm)",
+  padding: "10px 16px",
+};
+
 export function QuizScreen({ dispatch }: QuizScreenProps) {
   const [answers, setAnswers] = useState<string[]>(
     new Array(QUIZ_QUESTIONS.length).fill(""),
@@ -41,25 +67,13 @@ export function QuizScreen({ dispatch }: QuizScreenProps) {
   const q = QUIZ_QUESTIONS[currentQuestion];
   const isLastQuestion = currentQuestion === QUIZ_QUESTIONS.length - 1;
   const hasAnswer = answers[currentQuestion] !== "";
+  const disabledStyle = { opacity: hasAnswer ? 1 : 0.5 };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
-        width: "100%",
-        alignItems: "center",
-      }}
-    >
+    <div style={screenStyle}>
       <Timer secondsLeft={secondsLeft} />
 
-      <div
-        style={{
-          fontSize: "var(--font-size-sm)",
-          color: "var(--text-secondary)",
-        }}
-      >
+      <div style={questionCounterStyle}>
         Question {currentQuestion + 1} / {QUIZ_QUESTIONS.length}
       </div>
 
@@ -67,23 +81,12 @@ export function QuizScreen({ dispatch }: QuizScreenProps) {
         {q.question}
       </DialogueBox>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "8px",
-          width: "100%",
-        }}
-      >
+      <div style={optionsColumnStyle}>
         {q.options.map((opt) => (
           <PixelButton
             key={opt}
             variant={answers[currentQuestion] === opt ? "primary" : "secondary"}
-            style={{
-              width: "100%",
-              fontSize: "var(--font-size-sm)",
-              padding: "10px 16px",
-            }}
+            style={optionButtonStyle}
             onClick={() => {
               const newAnswers = [...answers];
               newAnswers[currentQuestion] = opt;
@@ -98,7 +101,7 @@ export function QuizScreen({ dispatch }: QuizScreenProps) {
       {isLastQuestion ? (
         <PixelButton
           disabled={!hasAnswer}
-          style={{ opacity: hasAnswer ? 1 : 0.5 }}
+          style={disabledStyle}
           onClick={() => handleSubmit(answers)}
         >
           Submit
@@ -106,7 +109,7 @@ export function QuizScreen({ dispatch }: QuizScreenProps) {
       ) : (
         <PixelButton
           disabled={!hasAnswer}
-          style={{ opacity: hasAnswer ? 1 : 0.5 }}
+          style={disabledStyle}
           onClick={() => setCurrentQuestion((prev) => prev + 1)}
         >
           Next

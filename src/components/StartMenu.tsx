@@ -5,20 +5,25 @@ interface StartMenuProps {
   dispatch: React.Dispatch<GameAction>;
 }
 
+const screenStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  minHeight: "80dvh",
+};
+
+const startButtonStyle: React.CSSProperties = {
+  fontSize: "var(--font-size-lg)",
+  padding: "18px 48px",
+};
+
 export function StartMenu({ dispatch }: StartMenuProps) {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "80dvh",
-      }}
-    >
+    <div style={screenStyle}>
       <PixelButton
         onClick={() => dispatch({ type: "GAME_START" })}
-        style={{ fontSize: "var(--font-size-lg)", padding: "18px 48px" }}
+        style={startButtonStyle}
       >
         START
       </PixelButton>

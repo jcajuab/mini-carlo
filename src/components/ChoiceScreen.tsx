@@ -8,6 +8,21 @@ interface ChoiceScreenProps {
   dispatch: React.Dispatch<GameAction>;
 }
 
+const screenStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+  width: "100%",
+  alignItems: "center",
+};
+
+const choicesColumnStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "12px",
+  width: "100%",
+};
+
 export function ChoiceScreen({
   screen,
   lineIndex,
@@ -18,30 +33,14 @@ export function ChoiceScreen({
   const lines = screen.lines ?? [];
   const currentLine = lines[lineIndex] ?? "";
   const isLastLine = lineIndex >= lines.length - 1;
-  const showChoices = isLastLine;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "24px",
-        width: "100%",
-        alignItems: "center",
-      }}
-    >
+    <div style={screenStyle}>
       <DialogueBox speaker="Mini Carlo">{currentLine}</DialogueBox>
 
-      {showChoices ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "12px",
-            width: "100%",
-          }}
-        >
-          {(screen.options ?? []).map((option) => (
+      {isLastLine ? (
+        <div style={choicesColumnStyle}>
+          {screen.options.map((option) => (
             <PixelButton
               key={option}
               variant="secondary"

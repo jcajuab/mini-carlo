@@ -49,7 +49,6 @@ body {
   align-items: center;
 }
 
-/* Retro border frame around the entire game */
 #root {
   min-height: calc(100svh - 32px);
   display: flex;

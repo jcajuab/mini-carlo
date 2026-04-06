@@ -5,6 +5,76 @@ interface DialogueBoxProps {
   children: ReactNode;
 }
 
+const boxStyle: React.CSSProperties = {
+  border: "3px solid var(--border-color)",
+  backgroundColor: "var(--bg-secondary)",
+  padding: "20px",
+  width: "100%",
+};
+
+const textStyle: React.CSSProperties = {
+  fontSize: "var(--font-size-base)",
+  lineHeight: "2",
+  color: "var(--text-primary)",
+};
+
+const speakerBoxStyle: React.CSSProperties = {
+  border: "3px solid var(--border-color)",
+  backgroundColor: "var(--bg-secondary)",
+  display: "flex",
+  alignItems: "flex-start",
+  gap: "12px",
+  padding: "12px",
+  width: "100%",
+};
+
+const avatarColumnStyle: React.CSSProperties = {
+  flexShrink: 0,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "3px",
+};
+
+const avatarFrameStyle: React.CSSProperties = {
+  border: "2px solid var(--border-color)",
+  backgroundColor: "var(--bg-card)",
+  padding: "3px",
+  lineHeight: 0,
+};
+
+const speakerLabelStyle: React.CSSProperties = {
+  fontSize: "5px",
+  color: "var(--text-accent)",
+  fontFamily: "var(--font-pixel)",
+  textAlign: "center",
+  lineHeight: "1.2",
+};
+
+const messageColumnStyle: React.CSSProperties = {
+  flex: 1,
+  minWidth: 0,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  minHeight: "58px",
+};
+
+const speakerTextStyle: React.CSSProperties = {
+  ...textStyle,
+  wordBreak: "break-word",
+};
+
+const cursorStyle: React.CSSProperties = {
+  display: "inline-block",
+  width: "6px",
+  height: "10px",
+  backgroundColor: "var(--text-accent)",
+  marginLeft: "4px",
+  verticalAlign: "middle",
+  animation: "cursor-blink 1s step-end infinite",
+};
+
 const AVATAR_SVG = (
   <svg
     viewBox="0 0 60 60"
@@ -62,102 +132,24 @@ const AVATAR_SVG = (
 export function DialogueBox({ speaker, children }: DialogueBoxProps) {
   if (!speaker) {
     return (
-      <div
-        style={{
-          border: "3px solid var(--border-color)",
-          backgroundColor: "var(--bg-secondary)",
-          padding: "20px",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "var(--font-size-base)",
-            lineHeight: "2",
-            color: "var(--text-primary)",
-          }}
-        >
-          {children}
-        </div>
+      <div style={boxStyle}>
+        <div style={textStyle}>{children}</div>
       </div>
     );
   }
 
   return (
     <div style={{ width: "100%" }}>
-      <div
-        style={{
-          border: "3px solid var(--border-color)",
-          backgroundColor: "var(--bg-secondary)",
-          display: "flex",
-          alignItems: "flex-start",
-          gap: "12px",
-          padding: "12px",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            flexShrink: 0,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "3px",
-          }}
-        >
-          <div
-            style={{
-              border: "2px solid var(--border-color)",
-              backgroundColor: "var(--bg-card)",
-              padding: "3px",
-              lineHeight: 0,
-            }}
-          >
-            {AVATAR_SVG}
-          </div>
-          <div
-            style={{
-              fontSize: "5px",
-              color: "var(--text-accent)",
-              fontFamily: "var(--font-pixel)",
-              textAlign: "center",
-              lineHeight: "1.2",
-            }}
-          >
-            {speaker}
-          </div>
+      <div style={speakerBoxStyle}>
+        <div style={avatarColumnStyle}>
+          <div style={avatarFrameStyle}>{AVATAR_SVG}</div>
+          <div style={speakerLabelStyle}>{speaker}</div>
         </div>
 
-        <div
-          style={{
-            flex: 1,
-            minWidth: 0,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            minHeight: "58px",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "var(--font-size-base)",
-              lineHeight: "2",
-              color: "var(--text-primary)",
-              wordBreak: "break-word",
-            }}
-          >
+        <div style={messageColumnStyle}>
+          <div style={speakerTextStyle}>
             {children}
-            <span
-              style={{
-                display: "inline-block",
-                width: "6px",
-                height: "10px",
-                backgroundColor: "var(--text-accent)",
-                marginLeft: "4px",
-                verticalAlign: "middle",
-                animation: "cursor-blink 1s step-end infinite",
-              }}
-            />
+            <span style={cursorStyle} />
           </div>
         </div>
       </div>

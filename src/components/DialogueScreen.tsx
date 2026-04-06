@@ -8,6 +8,14 @@ interface DialogueScreenProps {
   dispatch: React.Dispatch<GameAction>;
 }
 
+const screenStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+  width: "100%",
+  alignItems: "center",
+};
+
 export function DialogueScreen({
   screen,
   lineIndex,
@@ -29,15 +37,7 @@ export function DialogueScreen({
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "24px",
-        width: "100%",
-        alignItems: "center",
-      }}
-    >
+    <div style={screenStyle}>
       <DialogueBox speaker="Mini Carlo">{currentLine}</DialogueBox>
       <PixelButton onClick={handleContinue}>
         {isLastLine ? label : "..."}
