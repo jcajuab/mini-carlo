@@ -115,6 +115,13 @@ export function Game({ state, dispatch }: GameProps) {
       return null;
   }
 
+  const handleReset = () => {
+    if (window.confirm("Reset all progress and start over?")) {
+      localStorage.removeItem("mini-carlo-state");
+      dispatch({ type: "RESET_GAME" });
+    }
+  };
+
   return (
     <div
       style={{
@@ -128,6 +135,28 @@ export function Game({ state, dispatch }: GameProps) {
     >
       {screen.chapter && <ChapterHeader title={screen.chapter} />}
       {content}
+      {state.gameStarted && (
+        <button
+          onClick={handleReset}
+          style={{
+            marginTop: "auto",
+            paddingTop: "24px",
+            paddingBottom: "8px",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontFamily: "var(--font-pixel)",
+            fontSize: "6px",
+            color: "var(--text-secondary)",
+            opacity: 0.4,
+            transition: "opacity 0.2s",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.4")}
+        >
+          reset
+        </button>
+      )}
     </div>
   );
 }
