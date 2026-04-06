@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import type { GameAction } from "../types";
 import { getPhoto } from "../db/photoDb";
 import { PixelButton } from "./ui/PixelButton";
@@ -153,10 +153,7 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
     };
   }, []);
 
-  const handleDownload = useCallback(
-    () => downloadMemories(photoUrls),
-    [photoUrls],
-  );
+  const handleDownload = () => downloadMemories(photoUrls);
 
   const photoIds = ACTIVITY_IDS.filter((id) => photoUrls[id]);
   const hasPhotos = photoIds.length > 0;

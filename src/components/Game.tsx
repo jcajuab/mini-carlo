@@ -1,6 +1,5 @@
-import { useMemo } from "react";
 import type { GameState, GameAction } from "../types";
-import { screens, screenMap } from "../content/gameFlow";
+import { screenMap, getChapterTitle } from "../content/gameFlow";
 import { StartMenu } from "./StartMenu";
 import { DialogueScreen } from "./DialogueScreen";
 import { ChoiceScreen } from "./ChoiceScreen";
@@ -40,14 +39,7 @@ function ChapterHeader({ title }: { title: string }) {
 export function Game({ state, dispatch }: GameProps) {
   const screen = screenMap.get(state.currentScreenName);
 
-  const chapterTitle = useMemo(() => {
-    if (!screen) return null;
-    const idx = screens.findIndex((s) => s.name === screen.name);
-    for (let i = idx; i >= 0; i--) {
-      if (screens[i].chapter !== undefined) return screens[i].chapter || null;
-    }
-    return null;
-  }, [screen]);
+  const chapterTitle = getChapterTitle(state.currentScreenName);
 
   if (!screen) {
     return (

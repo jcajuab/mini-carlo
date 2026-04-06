@@ -13,6 +13,8 @@ export function ChoiceScreen({
   lineIndex,
   dispatch,
 }: ChoiceScreenProps) {
+  if (!screen.choiceId || !screen.options) return null;
+
   const lines = screen.lines ?? [];
   const currentLine = lines[lineIndex] ?? "";
   const isLastLine = lineIndex >= lines.length - 1;

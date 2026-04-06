@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import type { GameAction, ScreenNode } from "../types";
-import { usePhotos } from "../hooks/usePhotos";
+import { processPhoto } from "../utils/photoUtils";
+import { savePhoto } from "../db/photoDb";
 import { DialogueBox } from "./ui/DialogueBox";
 import { PixelButton } from "./ui/PixelButton";
 
@@ -18,8 +19,6 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
   const [error, setError] = useState<string | null>(null);
   const galleryRef = useRef<HTMLInputElement>(null);
   const cameraRef = useRef<HTMLInputElement>(null);
-  const { save } = usePhotos();
-
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !screen.activityId) return;
@@ -29,7 +28,8 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
     setUploading(true);
     setError(null);
     try {
-      await save(screen.activityId, file);
+      const processed = await processPhoto(file);
+      await savePhoto(screen.activityId, processed);
       dispatch({ type: "PHOTO_SAVED", activityId: screen.activityId });
     } catch {
       setError("Failed to save photo. Try again.");

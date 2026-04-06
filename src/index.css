@@ -23,16 +23,13 @@
   --text-accent: #ffafcc;
   --border-color: #ffafcc;
   --btn-bg: #ffafcc;
-  --btn-hover: #ffc8dd;
   --btn-text: #2a1d3e;
-  --success: #bde0fe;
   --fail: #ffafcc;
   --font-pixel: "Press Start 2P", monospace;
   --font-size-sm: 8px;
   --font-size-base: 10px;
   --font-size-lg: 12px;
   --font-size-xl: 16px;
-  --font-size-title: 20px;
 }
 
 html {

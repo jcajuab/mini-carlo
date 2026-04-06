@@ -17,7 +17,7 @@ export function DialogueScreen({
   const currentLine = lines[lineIndex] ?? "";
   const isLastLine = lineIndex >= lines.length - 1;
   const label = screen.continueLabel ?? "...";
-  const isFinalScreen = label === "BYE";
+  const isFinalScreen = screen.resetsGame === true;
 
   const handleContinue = () => {
     if (isLastLine && isFinalScreen) {

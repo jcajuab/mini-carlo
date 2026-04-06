@@ -338,12 +338,26 @@ export const screens: ScreenNode[] = [
       "I'll\u2026 log this as a successful run.",
     ],
     continueLabel: "BYE",
+    resetsGame: true,
   },
 ];
 
 export const screenMap = new Map<string, ScreenNode>(
   screens.map((s) => [s.name, s]),
 );
+
+const screenIndex = new Map(screens.map((s, i) => [s.name, i]));
+
+const chapterTitles = new Map<string, string>();
+let currentChapter: string | null = null;
+for (const s of screens) {
+  if (s.chapter !== undefined) currentChapter = s.chapter || null;
+  if (currentChapter) chapterTitles.set(s.name, currentChapter);
+}
+
+export function getChapterTitle(screenName: string): string | null {
+  return chapterTitles.get(screenName) ?? null;
+}
 
 export function getNextScreenName(
   current: ScreenNode,
@@ -354,7 +368,7 @@ export function getNextScreenName(
       ? current.next(state)
       : current.next;
   }
-  const idx = screens.indexOf(current);
+  const idx = screenIndex.get(current.name) ?? -1;
   if (idx < screens.length - 1) {
     return screens[idx + 1].name;
   }

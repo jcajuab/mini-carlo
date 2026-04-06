@@ -30,7 +30,6 @@ export function PixelButton({
         minHeight: "44px",
         minWidth: "44px",
         transition: "all 0.15s ease",
-        imageRendering: "pixelated",
         ...style,
       }}
       className="pixel-button"

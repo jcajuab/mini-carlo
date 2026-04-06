@@ -38,6 +38,7 @@ export interface ScreenNode {
   activityId?: string;
   chapter?: string;
   continueLabel?: string;
+  resetsGame?: boolean;
   next?: string | ((state: GameState) => string);
 }
 
