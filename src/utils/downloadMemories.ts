@@ -1,3 +1,5 @@
+import { saveFile } from "./saveFile";
+
 export const ACTIVITY_LABELS: Record<string, string> = {
   coffee: "Coffee",
   intermission: "Intermission",
@@ -119,13 +121,10 @@ export async function downloadMemories(
     );
   }
 
-  canvas.toBlob((blob) => {
-    if (!blob) return;
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "mini-carlo-memories.png";
-    a.click();
-    URL.revokeObjectURL(url);
-  }, "image/png");
+  const blob = await new Promise<Blob | null>((resolve) =>
+    canvas.toBlob(resolve, "image/png"),
+  );
+  if (!blob) return;
+
+  await saveFile(blob, "mini-carlo-memories.png");
 }

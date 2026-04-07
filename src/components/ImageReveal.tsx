@@ -1,4 +1,5 @@
 import type { GameAction, ScreenNode } from "../types";
+import { saveFromUrl } from "../utils/saveFile";
 import { DialogueBox } from "./ui/DialogueBox";
 import { PixelButton } from "./ui/PixelButton";
 
@@ -36,13 +37,6 @@ const buttonRowStyle: React.CSSProperties = {
   gap: "12px",
 };
 
-function downloadImage(src: string, filename: string) {
-  const a = document.createElement("a");
-  a.href = src;
-  a.download = filename;
-  a.click();
-}
-
 export function ImageReveal({ screen, lineIndex, dispatch }: ImageRevealProps) {
   const lines = screen.lines ?? [];
   const currentLine = lines[lineIndex] ?? "";
@@ -63,8 +57,8 @@ export function ImageReveal({ screen, lineIndex, dispatch }: ImageRevealProps) {
       {isLastLine && screen.saveable ? (
         <div style={buttonRowStyle}>
           <PixelButton
-            onClick={() => {
-              downloadImage(
+            onClick={async () => {
+              await saveFromUrl(
                 screen.asset!,
                 screen.downloadName ?? "mini-carlo-image.png",
               );

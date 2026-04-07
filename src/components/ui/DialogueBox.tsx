@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useTypewriter } from "../../hooks/useTypewriter";
 
 interface DialogueBoxProps {
   speaker?: string;
@@ -22,7 +23,7 @@ const speakerBoxStyle: React.CSSProperties = {
   border: "3px solid var(--border-color)",
   backgroundColor: "var(--bg-secondary)",
   display: "flex",
-  alignItems: "flex-start",
+  alignItems: "stretch",
   gap: "12px",
   padding: "12px",
   width: "100%",
@@ -34,6 +35,7 @@ const avatarColumnStyle: React.CSSProperties = {
   flexDirection: "column",
   alignItems: "center",
   gap: "3px",
+  justifyContent: "space-between",
 };
 
 const avatarFrameStyle: React.CSSProperties = {
@@ -41,6 +43,10 @@ const avatarFrameStyle: React.CSSProperties = {
   backgroundColor: "var(--bg-card)",
   padding: "3px",
   lineHeight: 0,
+  flex: 1,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 };
 
 const speakerLabelStyle: React.CSSProperties = {
@@ -56,8 +62,8 @@ const messageColumnStyle: React.CSSProperties = {
   minWidth: 0,
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
-  minHeight: "58px",
+  justifyContent: "flex-start",
+  minHeight: "100px",
 };
 
 const speakerTextStyle: React.CSSProperties = {
@@ -77,10 +83,10 @@ const cursorStyle: React.CSSProperties = {
 
 const AVATAR_SVG = (
   <svg
-    viewBox="0 0 60 60"
+    viewBox="0 0 60 90"
     width="52"
-    height="52"
-    style={{ display: "block", imageRendering: "pixelated" }}
+    height="auto"
+    style={{ display: "block", imageRendering: "pixelated", width: "100%" }}
   >
     <rect x="12" y="0" width="36" height="6" fill="#2a2a2a" />
     <rect x="6" y="6" width="48" height="6" fill="#2a2a2a" />
@@ -124,16 +130,51 @@ const AVATAR_SVG = (
     <rect x="12" y="36" width="36" height="6" fill="#c68642" />
 
     <rect x="18" y="42" width="24" height="6" fill="#c68642" />
-    <rect x="6" y="48" width="48" height="6" fill="#3d2d5c" />
-    <rect x="0" y="54" width="60" height="6" fill="#3d2d5c" />
+
+    <rect x="6" y="48" width="48" height="6" fill="#2d1f45" />
+    <rect x="24" y="48" width="6" height="2" fill="#c68642" />
+    <rect x="22" y="50" width="4" height="3" fill="#241838" />
+    <rect x="34" y="50" width="4" height="3" fill="#241838" />
+
+    <rect x="0" y="54" width="60" height="6" fill="#2d1f45" />
+    <rect x="0" y="60" width="60" height="6" fill="#2d1f45" />
+    <rect x="0" y="66" width="60" height="6" fill="#2d1f45" />
+    <rect x="0" y="72" width="60" height="6" fill="#2d1f45" />
+    <rect x="0" y="78" width="60" height="6" fill="#2d1f45" />
+    <rect x="0" y="84" width="60" height="6" fill="#2d1f45" />
+
+    <rect x="28" y="56" width="4" height="4" fill="#ffafcc" opacity="0.4" />
+    <rect x="28" y="68" width="4" height="4" fill="#ffafcc" opacity="0.4" />
+    <rect x="28" y="80" width="4" height="4" fill="#ffafcc" opacity="0.4" />
   </svg>
 );
 
+function TypewriterText({ text }: { text: string }) {
+  const { displayedText, isTyping } = useTypewriter(text);
+
+  return (
+    <>
+      {displayedText}
+      <span
+        style={{
+          ...cursorStyle,
+          animation: isTyping ? "none" : cursorStyle.animation,
+          opacity: isTyping ? 1 : undefined,
+        }}
+      />
+    </>
+  );
+}
+
 export function DialogueBox({ speaker, children }: DialogueBoxProps) {
+  const isString = typeof children === "string";
+
   if (!speaker) {
     return (
       <div style={boxStyle}>
-        <div style={textStyle}>{children}</div>
+        <div style={textStyle}>
+          {isString ? <TypewriterText text={children} /> : children}
+        </div>
       </div>
     );
   }
@@ -148,8 +189,7 @@ export function DialogueBox({ speaker, children }: DialogueBoxProps) {
 
         <div style={messageColumnStyle}>
           <div style={speakerTextStyle}>
-            {children}
-            <span style={cursorStyle} />
+            {isString ? <TypewriterText text={children} /> : children}
           </div>
         </div>
       </div>
