@@ -3,32 +3,35 @@ import { useState, useEffect, useRef } from "react";
 const CHAR_DELAY_MS = 35;
 
 export function useTypewriter(text: string) {
-  const [charIndex, setCharIndex] = useState(0);
+  const [charCount, setCharCount] = useState(0);
   const rafRef = useRef(0);
-  const lastTimeRef = useRef(0);
+
+  const [prevText, setPrevText] = useState(text);
+  if (prevText !== text) {
+    setPrevText(text);
+    setCharCount(0);
+  }
 
   useEffect(() => {
-    setCharIndex(0);
-    lastTimeRef.current = 0;
-
-    let currentIndex = 0;
+    let startTime = 0;
+    let revealed = 0;
 
     const tick = (timestamp: number) => {
-      if (!lastTimeRef.current) lastTimeRef.current = timestamp;
+      if (!startTime) startTime = timestamp;
 
-      const elapsed = timestamp - lastTimeRef.current;
-      const charsToReveal = Math.floor(elapsed / CHAR_DELAY_MS);
+      const target = Math.min(
+        Math.floor((timestamp - startTime) / CHAR_DELAY_MS),
+        text.length,
+      );
 
-      if (charsToReveal > currentIndex) {
-        currentIndex = charsToReveal;
-        if (currentIndex >= text.length) {
-          setCharIndex(text.length);
-          return;
-        }
-        setCharIndex(currentIndex);
+      if (target > revealed) {
+        revealed = target;
+        setCharCount(revealed);
       }
 
-      rafRef.current = requestAnimationFrame(tick);
+      if (revealed < text.length) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
     };
 
     rafRef.current = requestAnimationFrame(tick);
@@ -37,7 +40,7 @@ export function useTypewriter(text: string) {
   }, [text]);
 
   return {
-    displayedText: text.slice(0, charIndex),
-    isTyping: charIndex < text.length,
+    displayedText: text.slice(0, charCount),
+    isTyping: charCount < text.length,
   };
 }

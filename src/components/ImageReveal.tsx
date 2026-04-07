@@ -58,10 +58,16 @@ export function ImageReveal({ screen, lineIndex, dispatch }: ImageRevealProps) {
         <div style={buttonRowStyle}>
           <PixelButton
             onClick={async () => {
-              await saveFromUrl(
-                screen.asset!,
-                screen.downloadName ?? "mini-carlo-image.png",
-              );
+              try {
+                if (screen.asset) {
+                  await saveFromUrl(
+                    screen.asset,
+                    screen.downloadName ?? "mini-carlo-image.png",
+                  );
+                }
+              } catch {
+                // download failed — still advance
+              }
               advance();
             }}
           >

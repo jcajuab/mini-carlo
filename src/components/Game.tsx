@@ -71,6 +71,12 @@ export function Game({ state, dispatch }: GameProps) {
   const screen = screenMap.get(state.currentScreenName);
   const chapterTitle = getChapterTitle(state.currentScreenName);
 
+  const handleReset = () => {
+    if (window.confirm("Reset all progress and start over?")) {
+      dispatch({ type: "RESET_GAME" });
+    }
+  };
+
   if (!screen) {
     return (
       <div style={errorStyle}>Screen not found: {state.currentScreenName}</div>
@@ -140,17 +146,7 @@ export function Game({ state, dispatch }: GameProps) {
     case "ending":
       content = <EndingScreen dispatch={dispatch} />;
       break;
-
-    default:
-      return null;
   }
-
-  const handleReset = () => {
-    if (window.confirm("Reset all progress and start over?")) {
-      localStorage.removeItem("mini-carlo-state");
-      dispatch({ type: "RESET_GAME" });
-    }
-  };
 
   return (
     <div style={gameContainerStyle}>

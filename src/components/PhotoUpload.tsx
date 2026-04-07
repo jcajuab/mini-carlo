@@ -59,9 +59,14 @@ export function PhotoUpload({ screen, lineIndex, dispatch }: PhotoUploadProps) {
     try {
       const processed = await processPhoto(file);
       await savePhoto(screen.activityId, processed);
-      dispatch({ type: "PHOTO_SAVED", activityId: screen.activityId });
+      dispatch({
+        type: "PHOTO_SAVED",
+        activityId: screen.activityId,
+        timestamp: Date.now(),
+      });
     } catch {
       setError("Failed to save photo. Try again.");
+    } finally {
       setUploading(false);
     }
   };

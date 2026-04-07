@@ -29,7 +29,6 @@ export function DialogueScreen({
 
   const handleContinue = () => {
     if (isLastLine && isFinalScreen) {
-      localStorage.removeItem("mini-carlo-state");
       dispatch({ type: "RESET_GAME" });
     } else {
       dispatch({ type: isLastLine ? "NEXT_SCREEN" : "NEXT_LINE" });

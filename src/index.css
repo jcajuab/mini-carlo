@@ -94,6 +94,11 @@ img {
   filter: brightness(1.2);
 }
 
+.pixel-button:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 2px;
+}
+
 @keyframes cursor-blink {
   0%,
   100% {

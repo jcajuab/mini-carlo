@@ -1,4 +1,4 @@
-import type { GameState, GameAction } from "../types";
+import type { GameState, GameAction, ScreenNode } from "../types";
 import { screenMap, getNextScreenName } from "../content/gameFlow";
 import { QUIZ_QUESTIONS } from "../content/quizConfig";
 
@@ -12,6 +12,14 @@ export const initialState: GameState = {
   gameStarted: false,
   gameFinished: false,
 };
+
+const STORAGE_KEY = "mini-carlo-state";
+
+function advanceScreen(state: GameState, current: ScreenNode): GameState {
+  const nextName = getNextScreenName(current, state);
+  if (!nextName) return { ...state, gameFinished: true };
+  return { ...state, currentScreenName: nextName, dialogueLineIndex: 0 };
+}
 
 export function gameReducer(state: GameState, action: GameAction): GameState {
   const currentScreen = screenMap.get(state.currentScreenName);
@@ -35,27 +43,18 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       if (state.dialogueLineIndex < lines.length - 1) {
         return { ...state, dialogueLineIndex: state.dialogueLineIndex + 1 };
       }
-      const nextName = getNextScreenName(currentScreen, state);
-      if (!nextName) return { ...state, gameFinished: true };
-      return { ...state, currentScreenName: nextName, dialogueLineIndex: 0 };
+      return advanceScreen(state, currentScreen);
     }
 
-    case "NEXT_SCREEN": {
-      const nextName = getNextScreenName(currentScreen, state);
-      if (!nextName) return { ...state, gameFinished: true };
-      return { ...state, currentScreenName: nextName, dialogueLineIndex: 0 };
-    }
+    case "NEXT_SCREEN":
+      return advanceScreen(state, currentScreen);
 
     case "MAKE_CHOICE": {
-      const newChoices = { ...state.choices, [action.choiceId]: action.option };
-      const updatedState = { ...state, choices: newChoices };
-      const nextName = getNextScreenName(currentScreen, updatedState);
-      if (!nextName) return { ...updatedState, gameFinished: true };
-      return {
-        ...updatedState,
-        currentScreenName: nextName,
-        dialogueLineIndex: 0,
+      const updatedState = {
+        ...state,
+        choices: { ...state.choices, [action.choiceId]: action.option },
       };
+      return advanceScreen(updatedState, currentScreen);
     }
 
     case "SUBMIT_QUIZ": {
@@ -64,37 +63,27 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       const correctCount = action.answers.reduce((count, answer, i) => {
         return count + (answer === QUIZ_QUESTIONS[i].correctAnswer ? 1 : 0);
       }, 0);
-      const passed = correctCount === QUIZ_QUESTIONS.length;
       const updatedState = {
         ...state,
         quizAnswers: action.answers,
-        quizPassed: passed,
+        quizPassed: correctCount === QUIZ_QUESTIONS.length,
       };
-      const nextName = getNextScreenName(currentScreen, updatedState);
-      if (!nextName) return { ...updatedState, gameFinished: true };
-      return {
-        ...updatedState,
-        currentScreenName: nextName,
-        dialogueLineIndex: 0,
-      };
+      return advanceScreen(updatedState, currentScreen);
     }
 
     case "PHOTO_SAVED": {
-      const newPhotos = [
-        ...state.photos,
-        { activityId: action.activityId, timestamp: Date.now() },
-      ];
-      const updatedState = { ...state, photos: newPhotos };
-      const nextName = getNextScreenName(currentScreen, updatedState);
-      if (!nextName) return { ...updatedState, gameFinished: true };
-      return {
-        ...updatedState,
-        currentScreenName: nextName,
-        dialogueLineIndex: 0,
+      const updatedState = {
+        ...state,
+        photos: [
+          ...state.photos,
+          { activityId: action.activityId, timestamp: action.timestamp },
+        ],
       };
+      return advanceScreen(updatedState, currentScreen);
     }
 
     case "RESET_GAME":
+      localStorage.removeItem(STORAGE_KEY);
       return initialState;
 
     default:

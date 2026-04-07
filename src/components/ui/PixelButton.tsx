@@ -18,16 +18,18 @@ const baseStyle: React.CSSProperties = {
   transition: "all 0.15s ease",
 };
 
-const variantStyles: Record<
+const mergedVariants: Record<
   NonNullable<PixelButtonProps["variant"]>,
   React.CSSProperties
 > = {
   primary: {
+    ...baseStyle,
     borderColor: "var(--btn-bg)",
     backgroundColor: "var(--btn-bg)",
     color: "var(--btn-text)",
   },
   secondary: {
+    ...baseStyle,
     borderColor: "var(--text-secondary)",
     backgroundColor: "transparent",
     color: "var(--text-primary)",
@@ -42,7 +44,11 @@ export function PixelButton({
 }: PixelButtonProps) {
   return (
     <button
-      style={{ ...baseStyle, ...variantStyles[variant], ...style }}
+      style={
+        style
+          ? { ...mergedVariants[variant], ...style }
+          : mergedVariants[variant]
+      }
       className="pixel-button"
       {...props}
     >

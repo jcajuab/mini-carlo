@@ -54,10 +54,6 @@ export function QuizScreen({ dispatch }: QuizScreenProps) {
 
   const answersRef = useRef(answers);
 
-  useEffect(() => {
-    answersRef.current = answers;
-  }, [answers]);
-
   const { secondsLeft, start } = useTimer(QUIZ_TIME_LIMIT_SECONDS);
 
   useEffect(() => {
@@ -90,6 +86,7 @@ export function QuizScreen({ dispatch }: QuizScreenProps) {
             onClick={() => {
               const newAnswers = [...answers];
               newAnswers[currentQuestion] = opt;
+              answersRef.current = newAnswers;
               setAnswers(newAnswers);
             }}
           >

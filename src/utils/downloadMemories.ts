@@ -94,11 +94,19 @@ export async function downloadMemories(
 
     try {
       const img = new Image();
-      await new Promise<void>((resolve, reject) => {
-        img.onload = () => resolve();
-        img.onerror = () => reject();
-        img.src = url;
-      });
+      await Promise.race([
+        new Promise<void>((resolve, reject) => {
+          img.onload = () => resolve();
+          img.onerror = () => reject(new Error(`Failed to load image: ${id}`));
+          img.src = url;
+        }),
+        new Promise<never>((_, reject) =>
+          setTimeout(
+            () => reject(new Error(`Image load timeout: ${id}`)),
+            10_000,
+          ),
+        ),
+      ]);
 
       const scale = Math.max(photoW / img.width, photoH / img.height);
       const sw = photoW / scale;

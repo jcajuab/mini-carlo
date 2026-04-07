@@ -16,6 +16,8 @@ const screenStyle: React.CSSProperties = {
   alignItems: "center",
 };
 
+const fullWidthStyle: React.CSSProperties = { width: "100%" };
+
 const choicesColumnStyle: React.CSSProperties = {
   display: "flex",
   flexDirection: "column",
@@ -28,7 +30,8 @@ export function ChoiceScreen({
   lineIndex,
   dispatch,
 }: ChoiceScreenProps) {
-  if (!screen.choiceId || !screen.options) return null;
+  const { choiceId, options } = screen;
+  if (!choiceId || !options) return null;
 
   const lines = screen.lines ?? [];
   const currentLine = lines[lineIndex] ?? "";
@@ -40,15 +43,15 @@ export function ChoiceScreen({
 
       {isLastLine ? (
         <div style={choicesColumnStyle}>
-          {screen.options.map((option) => (
+          {options.map((option) => (
             <PixelButton
               key={option}
               variant="secondary"
-              style={{ width: "100%" }}
+              style={fullWidthStyle}
               onClick={() =>
                 dispatch({
                   type: "MAKE_CHOICE",
-                  choiceId: screen.choiceId!,
+                  choiceId,
                   option,
                 })
               }

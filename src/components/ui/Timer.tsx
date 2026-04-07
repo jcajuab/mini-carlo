@@ -11,20 +11,25 @@ const baseStyle: React.CSSProperties = {
   backgroundColor: "var(--bg-secondary)",
 };
 
+const normalStyle: React.CSSProperties = {
+  ...baseStyle,
+  color: "var(--text-accent)",
+  borderColor: "var(--border-color)",
+};
+
+const urgentStyle: React.CSSProperties = {
+  ...baseStyle,
+  color: "var(--fail)",
+  borderColor: "var(--fail)",
+  animation: "blink 0.5s step-end infinite",
+};
+
 export function Timer({ secondsLeft }: TimerProps) {
   const minutes = Math.floor(secondsLeft / 60);
   const seconds = secondsLeft % 60;
-  const isUrgent = secondsLeft <= 30;
 
   return (
-    <div
-      style={{
-        ...baseStyle,
-        color: isUrgent ? "var(--fail)" : "var(--text-accent)",
-        borderColor: isUrgent ? "var(--fail)" : "var(--border-color)",
-        animation: isUrgent ? "blink 0.5s step-end infinite" : undefined,
-      }}
-    >
+    <div style={secondsLeft <= 30 ? urgentStyle : normalStyle}>
       {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
     </div>
   );

@@ -187,7 +187,11 @@ export function EndingScreen({ dispatch }: EndingScreenProps) {
         {hasPhotos && (
           <PixelButton
             onClick={async () => {
-              await downloadMemories(photoUrls);
+              try {
+                await downloadMemories(photoUrls);
+              } catch {
+                // download failed — still advance
+              }
               dispatch({ type: "NEXT_SCREEN" });
             }}
           >

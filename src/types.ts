@@ -1,4 +1,4 @@
-interface PhotoMeta {
+export interface PhotoMeta {
   activityId: string;
   timestamp: number;
 }
@@ -50,5 +50,5 @@ export type GameAction =
   | { type: "NEXT_SCREEN" }
   | { type: "MAKE_CHOICE"; choiceId: string; option: string }
   | { type: "SUBMIT_QUIZ"; answers: string[] }
-  | { type: "PHOTO_SAVED"; activityId: string }
+  | { type: "PHOTO_SAVED"; activityId: string; timestamp: number }
   | { type: "RESET_GAME" };

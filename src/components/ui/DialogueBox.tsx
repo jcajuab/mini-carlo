@@ -71,14 +71,23 @@ const speakerTextStyle: React.CSSProperties = {
   wordBreak: "break-word",
 };
 
-const cursorStyle: React.CSSProperties = {
+const baseCursorStyle: React.CSSProperties = {
   display: "inline-block",
   width: "6px",
   height: "10px",
   backgroundColor: "var(--text-accent)",
   marginLeft: "4px",
   verticalAlign: "middle",
+};
+
+const blinkingCursorStyle: React.CSSProperties = {
+  ...baseCursorStyle,
   animation: "cursor-blink 1s step-end infinite",
+};
+
+const typingCursorStyle: React.CSSProperties = {
+  ...baseCursorStyle,
+  opacity: 1,
 };
 
 const AVATAR_SVG = (
@@ -155,13 +164,7 @@ function TypewriterText({ text }: { text: string }) {
   return (
     <>
       {displayedText}
-      <span
-        style={{
-          ...cursorStyle,
-          animation: isTyping ? "none" : cursorStyle.animation,
-          opacity: isTyping ? 1 : undefined,
-        }}
-      />
+      <span style={isTyping ? typingCursorStyle : blinkingCursorStyle} />
     </>
   );
 }
